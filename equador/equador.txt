@@ -1,1 +1,1 @@
-[]
+[{"name":"","contact":"","opening":"","description":"","latitude ":"","longitude ":""},{"name":"ely","contact":"050104","opening":"","description":"","latitude ":"ely","longitude ":"050104"},{"name":"nome1","contact":"050104","opening":"","description":"","latitude ":"ely","longitude ":"050104"},{"name":"nome2","contact":"050104","opening":"","description":"","latitude ":"ely","longitude ":"050104"}]
