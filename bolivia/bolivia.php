@@ -22,8 +22,7 @@ if ($method === 'POST') {
 
     foreach ($places as $place) {
         if ($place->name === $name) {
-            echo json_encode(['error' => 'Este lugar já está cadastrado.']);
-            exit;
+            responseError('Este lugar já está cadastrado.', 409);
         }
     }
 
