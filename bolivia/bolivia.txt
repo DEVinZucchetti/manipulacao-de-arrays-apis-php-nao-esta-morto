@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "name": "teste2",
+    "contact": "Contato da Empresa",
+    "openingHours": "Horário de Funcionamento",
+    "description": "Descrição da Empresa",
+    "latitude": 123.456,
+    "longitude": 789.012
+  },
+  {
+    "name": "teste",
+    "contact": "Contato da Empresa",
+    "openingHours": "Horário de Funcionamento",
+    "description": "Descrição da Empresa",
+    "latitude": 123.456,
+    "longitude": 789.012
+  },
+  {
+    "name": "teste3",
+    "contact": "Contato da Empresa",
+    "openingHours": "Horário de Funcionamento",
+    "description": "Descrição da Empresa",
+    "latitude": 123.456,
+    "longitude": 789.012
+  }
+]
