@@ -42,4 +42,9 @@ if ($method === 'POST') {
 
     response($data, 201);
     exit;
+} else if ($method === 'GET') {
+    $places = readFileContent(ARQUIVO_TXT);
+
+    response($places, 200);
+    exit;
 }
