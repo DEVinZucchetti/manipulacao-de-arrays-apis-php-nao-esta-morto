@@ -7,28 +7,28 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($method === 'POST') {
     $body = getBody();
 
-    $name =  filter_var($body->name, FILTER_SANITIZE_SPECIAL_CHARS);
-    $contact =  filter_var($body->contact, FILTER_SANITIZE_SPECIAL_CHARS);
-    $openingHours =  filter_var($body->openingHours, FILTER_SANITIZE_SPECIAL_CHARS);
-    $description =  filter_var($body->description, FILTER_SANITIZE_SPECIAL_CHARS);
+    $name = sanitizeString($body->name);
+    $contact =  sanitizeString($body->contact);
+    $openingHours = sanitizeString($body->openingHours);
+    $description =  sanitizeString($body->description);
     $latitude = filter_var($body->latitude, FILTER_VALIDATE_FLOAT);
     $longitude = filter_var($body->longitude, FILTER_VALIDATE_FLOAT);
 
     if (!$name || !$contact || !$openingHours || !$description || !$latitude || !$longitude) {
-        echo json_encode(['error' => 'Preencha todas as informações para cadastrar um novo lugar.']);
-        exit;
+        responseError('Preencha todas as informações para cadastrar um novo lugar.', 400);
     }
 
-    $lugares = readFileContent(ARQUIVO_TXT);
+    $places = readFileContent(ARQUIVO_TXT);
 
-    foreach ($lugares as $lugar) {
-        if ($lugar->name === $name) {
+    foreach ($places as $place) {
+        if ($place->name === $name) {
             echo json_encode(['error' => 'Este lugar já está cadastrado.']);
             exit;
         }
     }
 
-    $newPlace = [
+    $data = [
+        'id' => $_SERVER['REQUEST_TIME'], // timestamp da requisição, uso didático
         'name' => $name,
         'contact' => $contact,
         'openingHours' => $openingHours,
@@ -37,9 +37,9 @@ if ($method === 'POST') {
         'longitude' => $longitude
     ];
 
-    array_push($lugares, $newPlace);
-    saveFileContent(ARQUIVO_TXT, $lugares);
+    array_push($places, $data);
+    saveFileContent(ARQUIVO_TXT, $places);
 
-    echo json_encode(['success' => 'Lugar cadastrado com sucesso.']);
+    response($data, 201);
     exit;
 }
