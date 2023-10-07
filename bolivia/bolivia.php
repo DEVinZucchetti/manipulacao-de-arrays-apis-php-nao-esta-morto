@@ -46,4 +46,22 @@ if ($method === 'POST') {
 
     response($places, 200);
     exit;
+} else if ($method === 'DELETE') {
+    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
+    if (!$id) {
+        responseError('ID ausente', 400);
+    }
+
+    $places = readFileContent(ARQUIVO_TXT);
+
+    foreach ($places as $key => $place) {
+        if ($place->id === $id) {
+            unset($places[$key]);
+
+            saveFileContent(ARQUIVO_TXT, $places);
+            response('', 204);
+            exit;
+        }
+    }
 }
