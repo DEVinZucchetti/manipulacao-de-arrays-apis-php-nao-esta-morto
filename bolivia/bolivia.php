@@ -64,4 +64,32 @@ if ($method === 'POST') {
             exit;
         }
     }
+} else if ($method === 'PUT') {
+    $body = getBody();
+    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
+    if (!$id) {
+        responseError('ID ausente', 400);
+    }
+
+    $places = readFileContent(ARQUIVO_TXT);
+
+    foreach ($places as $key => $place) {
+        if ($place->id === $id) {
+
+            foreach ($body as $field => $value) {
+                if (property_exists($place, $field)) {
+                    if ($field === 'latitude' || $field === 'longitude') {
+                        $places[$key]->$field = filter_var($value, FILTER_VALIDATE_FLOAT);
+                        continue;
+                    }
+
+                    $places[$key]->$field = sanitizeString($value);
+                }
+            }
+        }
+    }
+
+    saveFileContent(ARQUIVO_TXT, $places);
+    response($places[$key], 200);
 }
