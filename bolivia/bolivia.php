@@ -40,7 +40,7 @@ if ($method === 'POST') {
     saveFileContent(ARQUIVO_TXT, $places);
 
     response($data, 201);
-} else if ($method === 'GET') {
+} else if ($method === 'GET' && !isset($_GET['id'])) {
     $places = readFileContent(ARQUIVO_TXT);
 
     response($places, 200);
@@ -89,4 +89,20 @@ if ($method === 'POST') {
 
     saveFileContent(ARQUIVO_TXT, $places);
     response($places[$key], 200);
+} else if ($method === 'GET' && isset($_GET['id'])) {
+    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
+    if (!$id) {
+        responseError('ID ausente', 400);
+    }
+
+    $places = readFileContent(ARQUIVO_TXT);
+
+    foreach ($places as $place) {
+        if ($place->id === $id) {
+            response($place, 200);
+        }
+    }
+
+    responseError('Lugar não encontrado', 404);
 }
