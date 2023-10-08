@@ -40,12 +40,10 @@ if ($method === 'POST') {
     saveFileContent(ARQUIVO_TXT, $places);
 
     response($data, 201);
-    exit;
 } else if ($method === 'GET') {
     $places = readFileContent(ARQUIVO_TXT);
 
     response($places, 200);
-    exit;
 } else if ($method === 'DELETE') {
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
@@ -61,7 +59,6 @@ if ($method === 'POST') {
 
             saveFileContent(ARQUIVO_TXT, $places);
             response('', 204);
-            exit;
         }
     }
 } else if ($method === 'PUT') {
