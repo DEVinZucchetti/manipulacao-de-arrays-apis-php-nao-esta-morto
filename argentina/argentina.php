@@ -37,5 +37,5 @@ if ($method === 'POST') {
     //salvando os dados dentro do arquivo argentina.txt
     saveFileContent(FILE_CITY, $data);
 
-    response($data);
+    response($data, 201);
 }
