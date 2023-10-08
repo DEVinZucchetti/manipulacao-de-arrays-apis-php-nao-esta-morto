@@ -9,7 +9,7 @@ function readFileContent($fileName)
     return json_decode(file_get_contents($fileName));
 }
 
-function saveFileContents($fileName, $content)
+function saveFileContent($fileName, $content)
 {
     file_put_contents($fileName, json_encode($content));
 }
