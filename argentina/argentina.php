@@ -31,6 +31,11 @@ if ($method === 'POST') {
     //fazer a leitura do arquivo primeiro para depois salvar
     $allData = readFileContent(FILE_CITY);
 
+    //realiza o push para enviar os valores
+    array_push($allData, $data);
+
     //salvando os dados dentro do arquivo argentina.txt
     saveFileContent(FILE_CITY, $data);
+
+    response($data);
 }
