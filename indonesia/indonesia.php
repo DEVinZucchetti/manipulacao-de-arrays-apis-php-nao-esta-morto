@@ -39,6 +39,19 @@ if ($method === 'POST') {
     echo json_encode($data);
 
 
+} else if ($method === 'GET') {
+    $fileContent = file_get_contents('indonesia.txt');
+    $data = json_decode($fileContent);
+
+    if ($data === null) {
+        http_response_code(500);
+        echo json_encode(["error" => "Não foi possível ler os dados"]);
+    } else {
+        echo json_encode($data);
+    }
+} else {
+    http_response_code(405);
+    echo json_encode(["error" => "Método não permitido"]);
 }
 
 ?>
