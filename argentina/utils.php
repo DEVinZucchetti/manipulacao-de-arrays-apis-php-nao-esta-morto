@@ -10,4 +10,8 @@ function readFileContent($fileName){
 function saveFileContents($fileName, $content) {
     file_put_contents($fileName, json_encode($content));
 }
+
+function validateString($value) {
+    return filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+}
 ?>
