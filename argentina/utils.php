@@ -19,7 +19,7 @@ function validateString($value)
     return filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS); // filtra o nome dentro o nome dentro do body e pega os dados 
 }
 
-function responseError($message, $status) // respota de erro ao fazer o post do body
+function responseError($status, $message) // respota de erro ao fazer o post do body
 {
     http_response_code($status);
     echo json_encode(['error' => $message]);
