@@ -61,6 +61,7 @@ if ($method === 'POST') {
             response('', 204);
         }
     }
+    responseError('ID não encontrado', 404);
 } else if ($method === 'PUT') {
     $body = getBody();
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
@@ -87,6 +88,7 @@ if ($method === 'POST') {
             response($places[$key], 200);
         }
     }
+    responseError('ID não encontrado', 404);
 } else if ($method === 'GET' && isset($_GET['id'])) {
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
