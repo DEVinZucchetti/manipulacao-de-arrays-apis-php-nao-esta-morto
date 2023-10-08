@@ -17,5 +17,20 @@ if ($method === 'POST') {
     if(!$name || !$contact || !$opening_hours || !$description || !$latitude || !$longitude) {
         responseError(400, 'Faltaram informações!');
     }
+
+    // salvando as informações dentro dos arquivos com o array associativo  
+    $data = [
+        'name' => $name,
+        'contact' => $contact,
+        'opening_hours' => $opening_hours,
+        'description' => $description,
+        'latitude' => $latitude,
+        'longitude' => $longitude
+    ];
+
+    //fazer a leitura do arquivo primeiro para depois salvar
+    $allData = readFileContent(FILE_CITY);
+
+    //salvando os dados dentro do arquivo argentina.txt
+    saveFileContent(FILE_CITY, $data);
 }
-?> 
