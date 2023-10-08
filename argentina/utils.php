@@ -23,8 +23,11 @@ function responseError($status, $message) // respota de erro ao fazer o post do 
 {
     http_response_code($status);
     echo json_encode(['error' => $message]);
+    exit;
 }
 
-function response($response) { // função de conversão da resposta para json
+function response($response, $status) { // função de conversão da resposta para json
+    http_response_code($status);
     echo json_encode($response);
+    exit; 
 }
