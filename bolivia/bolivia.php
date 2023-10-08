@@ -73,7 +73,6 @@ if ($method === 'POST') {
 
     foreach ($places as $key => $place) {
         if ($place->id === $id) {
-
             foreach ($body as $field => $value) {
                 if (property_exists($place, $field)) {
                     if ($field === 'latitude' || $field === 'longitude') {
@@ -84,11 +83,10 @@ if ($method === 'POST') {
                     $places[$key]->$field = sanitizeString($value);
                 }
             }
+            saveFileContent(ARQUIVO_TXT, $places);
+            response($places[$key], 200);
         }
     }
-
-    saveFileContent(ARQUIVO_TXT, $places);
-    response($places[$key], 200);
 } else if ($method === 'GET' && isset($_GET['id'])) {
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
