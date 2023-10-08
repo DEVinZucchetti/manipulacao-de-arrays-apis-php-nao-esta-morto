@@ -12,6 +12,6 @@ function saveFileContents($fileName, $content) {
 }
 
 function validateString($value) {
-    return filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+    return filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS); // filtra o nome dentro o nome dentro do body e pega os dados 
 }
 ?>
