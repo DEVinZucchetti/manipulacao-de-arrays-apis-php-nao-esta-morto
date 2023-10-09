@@ -63,9 +63,9 @@ if ($method === 'POST') {
     $allData = readFileContent(FILE_CITY);
 
     $itemsFiltered = array_filter($allData, function ($item) use ($id) {
-        return $item->id !== $id;
+        if($item->id !== $id) return $item;
     });
 
     saveFileContent(FILE_CITY, $itemsFiltered);
-    response(204, '');
+    response(204, ['message' => 'Deletado com sucesso!']);
 }
