@@ -23,7 +23,7 @@ if ($method === 'POST') {
 
     // salvando as informações dentro dos arquivos com o array associativo  
     $data = [
-        
+        'id' => $_SERVER['REQUEST_TIME'], //somente para esse projeto, pega a hora que foi feita a requisição e define como id
         'name' => $name,
         'contact' => $contact,
         'opening_hours' => $opening_hours,
