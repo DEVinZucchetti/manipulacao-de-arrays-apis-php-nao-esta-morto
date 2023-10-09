@@ -77,9 +77,22 @@ if ($method === 'POST') {
 
     $allData = readFileContent((FILE_CITY)); //leitura do arquivo 
 
-    foreach($allData as $item) { // quando recebe o id, se for o correto, ele retorna
-        if($item->id === $id) {
-            response(200, $item); 
+    foreach ($allData as $item) { // quando recebe o id, se for o correto, ele retorna
+        if ($item->id === $id) {
+            response(200, $item);
         }
     }
+} else if ($method === 'PUT') { // inicio da quarta questão, faz o put para atualizar as informações, FUNÇÃO MAIS COMPLETA POIS MANDA INFORMAÇÕES VIA BODY E UTILIZA O ID PARA DEFINIR QUAL ITEM SERÁ ATUALIZADO
+
+$body = getBody(); //pegar o body
+
+$id = $_GET['id']; //pegar o id 
+
+$allData = readFileContent((FILE_CITY)); //leitura do arquivo
+
+foreach ($allData as $item) { // quando recebe o id, se for o correto, ele retorna
+    if ($item->id === $id) {
+        $allData[]
+    }
+}
 }
