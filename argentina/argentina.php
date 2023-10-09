@@ -27,7 +27,6 @@ if ($method === 'POST') {
     $itemWhitSameName = array_filter($allData, function ($item) use ($name) {
         return $item->name === $name;
     });
-
     if (count($itemWhitSameName) > 0) {
         responseError(409, 'O item já existe');
     }
