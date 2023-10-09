@@ -18,7 +18,7 @@ if ($method === 'POST') {
   responseError('Preencha todas as informações para cadastrar um novo lugar.', 400);
  }
 
- $places = readFileContent(ARQUIVO_TXT);
+ $places = readFileContent(file_txt);
 
  foreach ($places as $place) {
   if ($place->name === $name) {
@@ -37,11 +37,11 @@ if ($method === 'POST') {
  ];
 
  array_push($places, $data);
- saveFileContent(ARQUIVO_TXT, $places);
+ saveFileContent(file_txt, $places);
 
  response($data, 201);
 } elseif ($method === 'GET' && !isset($_GET['id'])) {
- $places = readFileContent(ARQUIVO_TXT);
+ $places = readFileContent(file_txt);
 
  response($places, 200);
 } elseif ($method === 'DELETE') {
@@ -51,13 +51,13 @@ if ($method === 'POST') {
   responseError('ID ausente', 400);
  }
 
- $places = readFileContent(ARQUIVO_TXT);
+ $places = readFileContent(file_txt);
 
  foreach ($places as $key => $place) {
   if ($place->id === $id) {
    unset($places[$key]);
 
-   saveFileContent(ARQUIVO_TXT, $places);
+   saveFileContent(file_txt, $places);
    response('', 204);
   }
  }
@@ -70,7 +70,7 @@ if ($method === 'POST') {
   responseError('ID ausente', 400);
  }
 
- $places = readFileContent(ARQUIVO_TXT);
+ $places = readFileContent(file_txt);
 
  foreach ($places as $key => $place) {
   if ($place->id === $id) {
@@ -83,7 +83,7 @@ if ($method === 'POST') {
      $places[$key]->$field = sanitizeString($value);
     }
    }
-   saveFileContent(ARQUIVO_TXT, $places);
+   saveFileContent(file_txt, $places);
    response($places[$key], 200);
   }
  }
@@ -95,7 +95,7 @@ if ($method === 'POST') {
   responseError('ID ausente', 400);
  }
 
- $places = readFileContent(ARQUIVO_TXT);
+ $places = readFileContent(file_txt);
 
  foreach ($places as $place) {
   if ($place->id === $id) {

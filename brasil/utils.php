@@ -2,7 +2,7 @@
 
 function getBody()
 {
- return json_decode(file_get_contents("php://input")); //pega o body no formato de string
+ return json_decode(file_get_contents("php://input"));
 }
 
 function readFileContent($fileName)
