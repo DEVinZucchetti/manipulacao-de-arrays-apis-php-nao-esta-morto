@@ -93,9 +93,15 @@ if ($method === 'POST') {
 
     foreach ($allData as $position => $item) { // quando recebe o id, se for o correto, ele retorna o item da posição para poder alterar depois definir o item alterado dentro do if
         if ($item->id === $id) {
-            $allData[$position]->name = $body->name;
+            $allData[$position]->name = isset($body->name) ? $body->name : $item->name;
+            $allData[$position]->contact = isset($body->contact) ? $body->contact : $item->contact;
+            $allData[$position]->opening_hours = isset($body->opening_hours) ? $body->opening_hours : $item->opening_hours;
+            $allData[$position]->description = isset($body->description) ? $body->description : $item->description;
+            $allData[$position]->latitude = isset($body->latitude) ? $body->latitude : $item->latitude;
+            $allData[$position]->longitude = isset($body->longitude) ? $body->longitude : $item->longitude;
         }
     }
 
     saveFileContent(FILE_CITY, $allData);
+    response(200, []);
 }
