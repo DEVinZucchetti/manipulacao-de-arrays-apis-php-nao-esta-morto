@@ -84,15 +84,17 @@ if ($method === 'POST') {
     }
 } else if ($method === 'PUT') { // inicio da quarta questão, faz o put para atualizar as informações, FUNÇÃO MAIS COMPLETA POIS MANDA INFORMAÇÕES VIA BODY E UTILIZA O ID PARA DEFINIR QUAL ITEM SERÁ ATUALIZADO
 
-$body = getBody(); //pegar o body
+    $body = getBody(); //pegar o body
 
-$id = $_GET['id']; //pegar o id 
+    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT); //pegar o id 
 
-$allData = readFileContent((FILE_CITY)); //leitura do arquivo
+    $allData = readFileContent((FILE_CITY)); //leitura do arquivo
 
-foreach ($allData as $position => $item) { // quando recebe o id, se for o correto, ele retorna o item da posição para poder alterar depois definir o item alterado dentro do if
-    if ($item->id === $id) {
-        $allData[$position]['name'] = $body->name; 
+    foreach ($allData as $position => $item) { // quando recebe o id, se for o correto, ele retorna o item da posição para poder alterar depois definir o item alterado dentro do if
+        if ($item->id === $id) {
+            $allData[$position]->name = $body->name;
+        }
     }
-}
+
+    saveFileContent(FILE_CITY, $allData);
 }
