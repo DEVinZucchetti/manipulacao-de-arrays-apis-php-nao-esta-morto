@@ -55,14 +55,14 @@ if ($method === 'POST') {
     $allData = readFileContent(FILE_CITY);
     response($allData, 200);
 } else if ($method === 'DELETE') { // inicio da terceira questão do projeto DELETE, pegar parametro pela url para poder deletar
-    $id = filter_var($_GET['id']);
+    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
     if (!$id) {
         responseError(400, 'ID ausente');
     }
 
     $allData = readFileContent(FILE_CITY);
 
-    array_filter($allData, function ($item) use ($id) {
+    $itemsFiltered = array_filter($allData, function ($item) use ($id) {
         return $item->id !== $id;
     });
 
