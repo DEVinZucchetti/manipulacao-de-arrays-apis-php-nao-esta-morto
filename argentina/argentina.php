@@ -24,17 +24,17 @@ if ($method === 'POST') {
     $allData = readFileContent(FILE_CITY);
 
     //faz o filtro para verificar se não tem um name repetido
-    $itemWhitSameName = array_filter($allData, function ($item) use ($name) {
+    $itemWithSameName = array_filter($allData, function ($item) use ($name) {
         return $item->name === $name;
     });
 
-    if (count($itemWhitSameName) > 0) {
+    if (count($itemWithSameName) > 0) {
         responseError(409, 'O item já existe');
     }
 
     // salvando as informações dentro dos arquivos com o array associativo  
     $data = [
-        'id' => $_SERVER['REQUEST_TIME'], //somente para esse projeto, pega a hora que foi feita a requisição e define como id
+        'id' => $_SERVER['REQUEST_TIME'], //somente para esse projeto, pega a hora que foi feita a requisição e define como id, NÃO USAR EM OUTROS PROJETOS
         'name' => $name,
         'contact' => $contact,
         'opening_hours' => $opening_hours,
@@ -49,11 +49,11 @@ if ($method === 'POST') {
     //salvando os dados dentro do arquivo argentina.txt
     saveFileContent(FILE_CITY, $data);
 
-    response($data, 201);
+    response(201, $data);
 } else if ($method === 'GET' && !isset($_GET['id'])) { // inicio da segunda questão do projeto GET
     //ler o arquivo e retornar ele como json 
     $allData = readFileContent(FILE_CITY);
-    response($allData, 200);
+    response(200, $allData);
 } else if ($method === 'DELETE') { // inicio da terceira questão do projeto DELETE, pegar parametro pela url para poder deletar
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
     if (!$id) {
@@ -62,9 +62,10 @@ if ($method === 'POST') {
 
     $allData = readFileContent(FILE_CITY);
 
-    $itemsFiltered = array_filter($allData, function ($item) use ($id) {
-        if ($item->id !== $id) return $item;
-    });
+    $itemsFiltered = array_values(array_filter($allData, function ($item) use ($id) {
+        if ($item->id !== $id) return true;
+        return false;
+    }));
 
     saveFileContent(FILE_CITY, $itemsFiltered);
     response(204, ['message' => 'Deletado com sucesso!']);
