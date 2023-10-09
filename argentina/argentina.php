@@ -90,9 +90,9 @@ $id = $_GET['id']; //pegar o id
 
 $allData = readFileContent((FILE_CITY)); //leitura do arquivo
 
-foreach ($allData as $item) { // quando recebe o id, se for o correto, ele retorna
+foreach ($allData as $position => $item) { // quando recebe o id, se for o correto, ele retorna o item da posição para poder alterar depois definir o item alterado dentro do if
     if ($item->id === $id) {
-        $allData[]
+        $allData[$position]['name'] = $body->name; 
     }
 }
 }
