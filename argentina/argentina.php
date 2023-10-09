@@ -27,6 +27,7 @@ if ($method === 'POST') {
     $itemWhitSameName = array_filter($allData, function ($item) use ($name) {
         return $item->name === $name;
     });
+
     if (count($itemWhitSameName) > 0) {
         responseError(409, 'O item já existe');
     }
@@ -49,8 +50,22 @@ if ($method === 'POST') {
     saveFileContent(FILE_CITY, $data);
 
     response($data, 201);
-} else if ($method = 'GET') { // inicio da segunda questão do projeto GET
+} else if ($method === 'GET') { // inicio da segunda questão do projeto GET
     //ler o arquivo e retornar ele como json 
     $allData = readFileContent(FILE_CITY);
     response($allData, 200);
+} else if ($method === 'DELETE') { // inicio da terceira questão do projeto DELETE, pegar parametro pela url para poder deletar
+    $id = filter_var($_GET['id']);
+    if (!$id) {
+        responseError(400, 'ID ausente');
+    }
+
+    $allData = readFileContent(FILE_CITY);
+
+    array_filter($allData, function ($item) use ($id) {
+        return $item->id !== $id;
+    });
+
+    saveFileContent(FILE_CITY, $itemsFiltered);
+    response(204, '');
 }
