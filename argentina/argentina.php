@@ -24,10 +24,13 @@ if ($method === 'POST') {
     $allData = readFileContent(FILE_CITY);
 
     //faz o filtro para verificar se não tem um name repetido
-    $itemWhitSameName = array_filter($allData, function ($item) use($name) {
+    $itemWhitSameName = array_filter($allData, function ($item) use ($name) {
         return $item->name === $name;
     });
 
+    if (count($itemWhitSameName) > 0) {
+        responseError(409, 'O item já existe');
+    }
 
     // salvando as informações dentro dos arquivos com o array associativo  
     $data = [
