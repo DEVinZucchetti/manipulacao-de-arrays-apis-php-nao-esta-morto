@@ -26,7 +26,7 @@ function responseError($status, $message) // respota de erro ao fazer o post do 
     exit;
 }
 
-function response($response, $status) { // função de conversão da resposta para json
+function response($status, $response) { // função de conversão da resposta para json
     http_response_code($status);
     echo json_encode($response);
     exit; 
