@@ -14,12 +14,16 @@ if ($method === 'POST') {
     $latitude = filter_var($body->latitude, FILTER_VALIDATE_FLOAT);
     $longitude = filter_var($body->longitude, FILTER_VALIDATE_FLOAT);
 
-    if(!$name || !$contact || !$opening_hours || !$description || !$latitude || !$longitude) {
+    if (!$name || !$contact || !$opening_hours || !$description || !$latitude || !$longitude) {
         responseError(400, 'Faltaram informações!');
     }
 
+    //fazer a leitura do arquivo primeiro para depois salvar
+    $allData = readFileContent(FILE_CITY);
+
     // salvando as informações dentro dos arquivos com o array associativo  
     $data = [
+        
         'name' => $name,
         'contact' => $contact,
         'opening_hours' => $opening_hours,
@@ -28,9 +32,6 @@ if ($method === 'POST') {
         'longitude' => $longitude
     ];
 
-    //fazer a leitura do arquivo primeiro para depois salvar
-    $allData = readFileContent(FILE_CITY);
-
     //realiza o push para enviar os valores
     array_push($allData, $data);
 
@@ -38,4 +39,8 @@ if ($method === 'POST') {
     saveFileContent(FILE_CITY, $data);
 
     response($data, 201);
+} else if ($method = 'GET') { // inicio da segunda questão do projeto GET
+    //ler o arquivo e retornar ele como json 
+    $allData = readFileContent(FILE_CITY);
+    response($allData, 200);
 }
