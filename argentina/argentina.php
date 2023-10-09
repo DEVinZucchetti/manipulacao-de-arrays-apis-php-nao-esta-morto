@@ -50,7 +50,7 @@ if ($method === 'POST') {
     saveFileContent(FILE_CITY, $data);
 
     response($data, 201);
-} else if ($method === 'GET') { // inicio da segunda questão do projeto GET
+} else if ($method === 'GET' && !isset($_GET['id'])) { // inicio da segunda questão do projeto GET
     //ler o arquivo e retornar ele como json 
     $allData = readFileContent(FILE_CITY);
     response($allData, 200);
@@ -63,9 +63,23 @@ if ($method === 'POST') {
     $allData = readFileContent(FILE_CITY);
 
     $itemsFiltered = array_filter($allData, function ($item) use ($id) {
-        if($item->id !== $id) return $item;
+        if ($item->id !== $id) return $item;
     });
 
     saveFileContent(FILE_CITY, $itemsFiltered);
     response(204, ['message' => 'Deletado com sucesso!']);
+} else if ($method === 'GET' && $_GET['id']) { //inicio da quinta questão, visualização do lugar
+    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT); // recebe o id 
+
+    if (!$id) { //validade para ver se existe
+        responseError(400, 'ID ausente');
+    }
+
+    $allData = readFileContent((FILE_CITY)); //leitura do arquivo 
+
+    foreach($allData as $item) { // quando recebe o id, se for o correto, ele retorna
+        if($item->id === $id) {
+            response(200, $item); 
+        }
+    }
 }
