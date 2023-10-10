@@ -22,7 +22,10 @@ if($method === "POST"){
        
     }
 
+    $allData = readFileContent(FILE_CITY);
+
     $data = [
+        "id" => $_SERVER["REQUEST_TIME"],// para uso didactico para poner un id con fecha y hora
         "name" => $name,
         "contact" => $contact,
         "opening_hours" => $opening_hours,
@@ -36,5 +39,9 @@ if($method === "POST"){
     saveFileContent(FILE_CITY, $allData);
 
     response($data, 201);
+ } else if($method ="GET"){
+    $allData = readFileContent(FILE_CITY);
+    response($allData,200);
+
  }
 ?>
