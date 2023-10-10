@@ -1,1 +1,1 @@
-[]
+[{"id":1696943322,"name":"Praia","contact":"4002-8922","opening_hours":"o dia todo fml","description":"Lugar mais bonito do mundo","latitude":-1200.5632,"longitude":250.654},{"id":1696943331,"name":"Cachoeira","contact":"4002-8922","opening_hours":"o dia todo fml","description":"Lugar mais bonito do mundo","latitude":-1200.5632,"longitude":250.654}]
