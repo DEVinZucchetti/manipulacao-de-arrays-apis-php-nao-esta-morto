@@ -86,9 +86,23 @@ if($method === "POST"){
     foreach($allData as $item){
         if($item->id === $id){
             response($item,200);
-         
         }
     }
+
+    //pra atualizar os dados do cadastro
+} else if($method === "PUT"){   
+    $body = getBody();
+    $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
+
+    var_dump($id);
+
+    $allData = readFileContent(FILE_CITY);
+
+    foreach($allData as $position => $item){
+        if($item->id == $id){
+           $allData[$position]->name =$body->name;
+        }
+    }
+
+    var_dump($allData);
 }
- 
-?>
