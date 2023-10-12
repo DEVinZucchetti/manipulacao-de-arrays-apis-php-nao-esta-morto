@@ -45,15 +45,50 @@ if($method === "POST"){
         "longitude" => $longitude,
     ];
 
-    
-    $allData = readFileContent(FILE_CITY);
+        
     array_push($allData, $data);
     saveFileContent(FILE_CITY, $allData);
 
     response($data, 201);
- } else if($method ="GET"){
+} else if ($method === 'GET' && !isset($_GET['id'])) {
     $allData = readFileContent(FILE_CITY);
-    response($allData,200);
+    response($allData, 200);
 
- }
+}else if($method === "DELETE"){
+    $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
+
+    
+    if(!$id){
+        responseError("ID ausente", 400);
+    }
+
+    $allData = readFileContent(FILE_CITY);
+
+    $itemsFiltered = array_filter($allData, function ($item) use ($id){
+        if($item->id !== $id);
+    });
+
+    var_dump($itemsFiltered);
+
+    saveFileContent(FILE_CITY,$itemsFiltered);
+
+    response(["message" => "Deletado com sucesso"],204);
+} else if($method === "GET" && $_GET["id"]){
+    $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
+
+
+    if(!$id){
+        responseError("ID ausente", 400);
+    }
+    $allData = readFileContent(FILE_CITY);
+
+    
+    foreach($allData as $item){
+        if($item->id === $id){
+            response($item,200);
+         
+        }
+    }
+}
+ 
 ?>
