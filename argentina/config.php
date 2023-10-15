@@ -1,5 +1,6 @@
 <?php 
 define('FILE_CITY', 'argentina.txt');
+define('FILE_REVIEWS', 'reviews.txt');
 
 header("Content-Type: application/json"); 
 header("Access-Control-Allow-Origin: *"); 
