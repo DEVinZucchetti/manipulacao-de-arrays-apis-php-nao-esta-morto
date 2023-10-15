@@ -29,6 +29,10 @@ if ($method === 'POST') {
             str_replace($word, '[EDITADO PELO ADMIN]', $name);
         }
     }
+    //fazer o allData
+
+    
+
 }
 
 ?>
