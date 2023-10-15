@@ -20,6 +20,8 @@ if ($method === 'POST') {
     if(!$stars) responseError(400,'Quantidade de estrelas ausente');
     if(!$status) responseError(400,'Status de avaliação ausente');
 
+    if(strlen($name) > 200) responseError(400, 'O texto ultrapassou o limite');
+
 }
 
 ?>
