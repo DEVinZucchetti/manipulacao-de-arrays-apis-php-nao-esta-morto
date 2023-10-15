@@ -1,4 +1,6 @@
 <?php 
+date_default_timezone_set('America/Sao_Paulo');
+
 define('FILE_CITY', 'argentina.txt');
 define('FILE_REVIEWS', 'reviews.txt');
 
