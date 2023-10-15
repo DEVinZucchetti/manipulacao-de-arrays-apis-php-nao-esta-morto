@@ -13,6 +13,13 @@ if ($method === 'POST') {
     $stars = sanitizeInput($body, 'stars', FILTER_VALIDATE_FLOAT);
     $date = (new DateTime())->format('d/m/Y h:m');
     $status = sanitizeInput($body, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    if(!$place_id) responseError(400,'Id do lugar ausente');
+    if(!$name) responseError(400,'Descrição da avaliação ausente');
+    if(!$email) responseError(400,'Email ausente');
+    if(!$stars) responseError(400,'Quantidade de estrelas ausente');
+    if(!$status) responseError(400,'Status de avaliação ausente');
+
 }
 
 ?>
