@@ -14,6 +14,8 @@ if ($method === 'POST') {
     $date = (new DateTime())->format('d/m/Y h:m');
     $status = sanitizeInput($body, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 
+    $prohibited_words = ['polimorfismo', 'herança', 'abstração', 'encapsulamento'];
+
     if(!$place_id) responseError(400,'Id do lugar ausente');
     if(!$name) responseError(400,'Descrição da avaliação ausente');
     if(!$email) responseError(400,'Email ausente');
@@ -22,6 +24,11 @@ if ($method === 'POST') {
 
     if(strlen($name) > 200) responseError(400, 'O texto ultrapassou o limite');
 
+    foreach($prohibited_words as $word) {
+        if(str_contains($name, $word)) {
+            str_replace($word, '[EDITADO PELO ADMIN]', $name);
+        }
+    }
 }
 
 ?>
