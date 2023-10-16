@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-require_once './utils.php';
+require_once 'utils.php';
 date_default_timezone_set('America/Sao_Paulo');
 
 class Review {
@@ -47,8 +47,8 @@ class Review {
                 saveFileContent(FILE_REVIEWS, $allData);
                 return response("Alteração de status para $status realizada com sucesso.", 200);
             }
-            return responseError('Avaliação não encontrada.', 404);
         }
+        return responseError('Avaliação não encontrada.', 404);
     }
 
     public function getId() {
