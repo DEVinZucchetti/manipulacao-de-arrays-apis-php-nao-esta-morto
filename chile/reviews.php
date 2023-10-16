@@ -35,8 +35,9 @@ if ($method === 'POST') {
     $review->save();
 
     response(['message' => 'Avaliação enviada com sucesso. Ela ficará visível para todos assim que terminarmos de analisá-la!.'], 201);
-} else if ($method === 'GET') {
-    $place_id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false);
+} else if ($method = 'GET') {
+
+    $place_id = sanitizeInput($_GET,  'id', FILTER_VALIDATE_INT, false);
 
     if (!$place_id) responseError('ID do local ausente. Insira para prosseguir.', 400);
 
