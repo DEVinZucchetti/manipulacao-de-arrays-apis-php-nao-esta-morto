@@ -33,7 +33,9 @@ if ($method === "POST") {
         if(str_contains($name, $word ))
         str_replace($word, "[EDITADO PELO ADMIN]", $name);}*/
     
-     //5. antes de cadastrar veo si no hay un dato com o mismo nome
+//listagem-get
+    $allData = readFileContent(FILE_REVIEWS);
+    
      $data = [
         "place_id" => $place_id, 
         "name" => $name,
@@ -42,12 +44,12 @@ if ($method === "POST") {
         "status" => $status,
     ];
 
-    $allData = readFileContent(FILE_REVIEWS);
-    array_push($allData, $data);
     saveFileContent(FILE_REVIEWS, $allData);
+    response($data, 201);
 
-response($data, 201);
-
+ } else if($method ="GET"){
+    $allData = readFileContent(FILE_REVIEWS);
+    response($allData,200);
 }
 
 ?>
