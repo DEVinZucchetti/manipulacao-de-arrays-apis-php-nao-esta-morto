@@ -29,6 +29,16 @@ class Review {
         saveFileContent(FILE_REVIEWS, $allData);
     }
 
+    public function list() {
+        $allData = readFileContent(FILE_REVIEWS);
+
+        $filtered = array_values(array_filter($allData, function ($review) {
+            return $review->place_id === $this->getPlaceId();
+        }));
+
+        return $filtered;
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -68,7 +78,6 @@ class Review {
     public function setStatus($status) {
         $this->status = $status;
     }
-
 
     public function getPlaceId() {
         return $this->place_id;
