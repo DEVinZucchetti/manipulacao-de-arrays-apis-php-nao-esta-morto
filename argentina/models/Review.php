@@ -29,7 +29,6 @@ class Review
             'name'=> $this->getName(),
             'email'=> $this->getEmail(),
             'stars'=> $this->getStars(),
-            'status'=> $this->getStatus(),
             'date'=> $this->getDate(),
             'place_id'=> $this->getId(),
 
