@@ -39,6 +39,11 @@ class Review
         saveFileContent('reviews.txt', $allData);
     }
 
+    public function list() {
+        $allData = readFileContent('reviews.txt');
+        return $allData;
+    }
+
     public function getId()
     {
         return $this->id;
