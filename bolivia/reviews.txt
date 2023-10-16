@@ -4,7 +4,7 @@
     "name": "Esse lugar é um [EDITADO PELO ADMIN]",
     "email": "caroline@email.com",
     "stars": 2,
-    "status": "PENDENTE",
+    "status": "APROVADO",
     "date": "15/10/2023 21:45",
     "place_id": 1696633945
   }

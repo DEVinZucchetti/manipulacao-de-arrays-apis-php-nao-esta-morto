@@ -44,4 +44,15 @@ if ($method === 'POST') {
     $reviews = new Review($place_id);
 
     response($reviews->list(), 200);
+} else if ($method === "PUT") {
+    $body = getBody();
+    $id =  sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
+
+    $status = sanitizeInput($body,  'status', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    if (!$id) responseError('ID da avaliação ausente. Insira para prosseguir.', 400);
+    if (!$status) responseError('Status ausente. Insira para prosseguir.', 400);
+
+    $review = new Review();
+    $reviewFound = $review->modifyReviewStatus($id, $status);
 }
