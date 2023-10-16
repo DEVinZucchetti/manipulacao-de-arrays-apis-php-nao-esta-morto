@@ -41,7 +41,12 @@ if ($method === 'POST') {
     response(201, ['message' => 'Cadastrado com sucesso!']);
 } else if ($method === 'GET') {
 
-    $place_id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false); 
+    $place_id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false);
 
-    if (!$place_id) responseError(400, 'ID do lugar esta ausente'); 
+    if (!$place_id) responseError(400, 'ID do lugar esta ausente');
+
+    $reviews = new Review($place_id);
+    $reviews->list();
+
+    response(200, $reviews);
 }
