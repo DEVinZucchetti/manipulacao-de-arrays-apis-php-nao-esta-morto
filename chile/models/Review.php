@@ -39,6 +39,18 @@ class Review {
         return $filtered;
     }
 
+    public function modifyReviewStatus($id, $status) {
+        $allData  = readFileContent(FILE_REVIEWS);
+        foreach ($allData  as $review) {
+            if ($review->id === $id) {
+                $review->status = $status;
+                saveFileContent(FILE_REVIEWS, $allData);
+                return response("Alteração de status para $status realizada com sucesso.", 200);
+            }
+            return responseError('Avaliação não encontrada.', 404);
+        }
+    }
+
     public function getId() {
         return $this->id;
     }
