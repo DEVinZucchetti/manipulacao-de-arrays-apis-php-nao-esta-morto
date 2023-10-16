@@ -12,7 +12,6 @@ if ($method === 'POST') {
     $name = sanitizeInput($body, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
     $email = sanitizeInput($body, 'email', FILTER_VALIDATE_EMAIL);
     $stars = sanitizeInput($body, 'stars', FILTER_VALIDATE_FLOAT);
-    $status = sanitizeInput($body, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $prohibited_words = ['polimorfismo', 'herança', 'abstração', 'encapsulamento'];
 

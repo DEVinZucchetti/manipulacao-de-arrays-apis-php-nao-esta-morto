@@ -3,6 +3,14 @@
 require_once './utils.php';
 //nome da classe
 //atributos
+
+//enum = enumarador de opções
+/* enum ReviewsStatus {
+    case 1: 'PENDENTE';
+    case 2: 'FINALIZADO';
+    case 3: 'REPROVADO';
+} */
+
 class Review
 {
     private $id, $place_id, $name, $email, $stars, $date, $status;
@@ -11,7 +19,8 @@ class Review
     {
         $this->id = uniqid();
         $this->place_id = $place_id;
-        $this->date = (new DateTime())->format('d/m/Y h:m');
+        $this->date = (new DateTime())->format('d/m/Y H:i');
+        $this->status = 'PENDENTE';
     }
 
     public function save() {
