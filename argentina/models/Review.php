@@ -23,14 +23,15 @@ class Review
         $this->status = 'PENDENTE';
     }
 
-    public function save() {
+    public function save()
+    {
         $data = [
-            'id'=> $this->getId(),
-            'name'=> $this->getName(),
-            'email'=> $this->getEmail(),
-            'stars'=> $this->getStars(),
-            'date'=> $this->getDate(),
-            'place_id'=> $this->getId(),
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'email' => $this->getEmail(),
+            'stars' => $this->getStars(),
+            'date' => $this->getDate(),
+            'place_id' => $this->getPlace_id(),
 
         ];
 
@@ -39,9 +40,13 @@ class Review
         saveFileContent('reviews.txt', $allData);
     }
 
-    public function list() {
+    public function list()
+    {
         $allData = readFileContent('reviews.txt');
-        return $allData;
+        $filtered = array_values(array_filter($allData, function ($review) {
+            return $review->place_id === $this->getPlace_id();
+        }));
+        return $filtered;
     }
 
     public function getId()
