@@ -25,7 +25,7 @@ if ($method === 'POST') {
 
     foreach($prohibited_words as $word) {
         if(str_contains(strtolower($name), $word)) {
-           $name = str_replace($word, '[EDITADO PELO ADMIN]', $name);
+           $name = str_ireplace($word, '[EDITADO PELO ADMIN]', $name);
         }
     }
 
