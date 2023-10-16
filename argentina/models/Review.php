@@ -1,13 +1,34 @@
-<?php 
+<?php
 
+require_once './utils.php';
 //nome da classe
 //atributos
-class Review {
-    private $id, $place, $name, $email, $stars, $date, $status;
+class Review
+{
+    private $id, $place_id, $name, $email, $stars, $date, $status;
 
-    public function __construct($place) {
+    public function __construct($place_id)
+    {
         $this->id = uniqid();
-        $this->place = $place; 
+        $this->place_id = $place_id;
+        $this->date = (new DateTime())->format('d/m/Y h:m');
+    }
+
+    public function save() {
+        $data = [
+            'id'=> $this->getId(),
+            'name'=> $this->getName(),
+            'email'=> $this->getEmail(),
+            'stars'=> $this->getStars(),
+            'status'=> $this->getStatus(),
+            'date'=> $this->getDate(),
+            'place_id'=> $this->getId(),
+
+        ];
+
+        $allData = readFileContent('reviews.txt');
+        array_push($allData, $data);
+        saveFileContent('reviews.txt', $allData);
     }
 
     public function getId()
@@ -23,8 +44,6 @@ class Review {
     public function setName($name)
     {
         $this->name = $name;
-
-
     }
 
     public function getEmail()
@@ -34,8 +53,6 @@ class Review {
     public function setEmail($email)
     {
         $this->email = $email;
-
-
     }
 
     public function getStars()
@@ -45,19 +62,11 @@ class Review {
     public function setStars($stars)
     {
         $this->stars = $stars;
-
     }
 
     public function getDate()
     {
         return $this->date;
-    }
-
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-
     }
 
     public function getStatus()
@@ -68,7 +77,10 @@ class Review {
     public function setStatus($status)
     {
         $this->status = $status;
+    }
 
-
+    public function getPlace_id()
+    {
+        return $this->place_id;
     }
 }

@@ -1,6 +1,7 @@
 <?php 
 require_once 'config.php';
 require_once 'utils.php';
+require_once 'models/Review.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -11,7 +12,6 @@ if ($method === 'POST') {
     $name = sanitizeInput($body, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
     $email = sanitizeInput($body, 'email', FILTER_VALIDATE_EMAIL);
     $stars = sanitizeInput($body, 'stars', FILTER_VALIDATE_FLOAT);
-    $date = (new DateTime())->format('d/m/Y h:m');
     $status = sanitizeInput($body, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $prohibited_words = ['polimorfismo', 'herança', 'abstração', 'encapsulamento'];
@@ -26,13 +26,19 @@ if ($method === 'POST') {
 
     foreach($prohibited_words as $word) {
         if(str_contains($name, $word)) {
-            str_replace($word, '[EDITADO PELO ADMIN]', $name);
+           $name = str_replace($word, '[EDITADO PELO ADMIN]', $name);
         }
     }
-    //fazer o allData
 
-    
+
+    // maneira de salvar um arquivo 
+    $review = new Review($place_id);
+    $review->setName($name); 
+    $review->setEmail($email); 
+    $review->setStars($stars); 
+    $review->setStatus($status);  
+    $review-> save();
+
+    response(201, ['message' => 'Cadastrado com sucesso!']);
 
 }
-
-?>
