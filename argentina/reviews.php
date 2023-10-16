@@ -40,4 +40,6 @@ if ($method === 'POST') {
 
     response(201, ['message' => 'Cadastrado com sucesso!']);
 
+} else if($method === 'GET') {
+    
 }
