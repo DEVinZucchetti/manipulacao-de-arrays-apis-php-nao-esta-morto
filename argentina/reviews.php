@@ -24,7 +24,7 @@ if ($method === 'POST') {
     if(strlen($name) > 200) responseError(400, 'O texto ultrapassou o limite');
 
     foreach($prohibited_words as $word) {
-        if(str_contains($name, $word)) {
+        if(str_contains(strtolower($name), $word)) {
            $name = str_replace($word, '[EDITADO PELO ADMIN]', $name);
         }
     }
