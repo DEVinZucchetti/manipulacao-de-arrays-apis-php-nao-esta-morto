@@ -46,7 +46,5 @@ if ($method === 'POST') {
     if (!$place_id) responseError(400, 'ID do lugar esta ausente');
 
     $reviews = new Review($place_id);
-    $reviews->list();
-
-    response(200, $reviews);
+    response(200, $reviews->list());
 }
