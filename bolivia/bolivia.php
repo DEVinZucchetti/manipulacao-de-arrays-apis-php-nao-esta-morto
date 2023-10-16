@@ -1,108 +1,72 @@
 <?php
 require_once 'config.php';
 require_once 'utils.php';
+require_once 'models/Place.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'POST') {
     $body = getBody();
 
-    $name = sanitizeString($body->name);
-    $contact =  sanitizeString($body->contact);
-    $openingHours = sanitizeString($body->openingHours);
-    $description =  sanitizeString($body->description);
-    $latitude = filter_var($body->latitude, FILTER_VALIDATE_FLOAT);
-    $longitude = filter_var($body->longitude, FILTER_VALIDATE_FLOAT);
+    $name = sanitizeInput($body, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+    $contact = sanitizeInput($body, 'contact', FILTER_SANITIZE_SPECIAL_CHARS);
+    $openingHours = sanitizeInput($body, 'openingHours', FILTER_SANITIZE_SPECIAL_CHARS);
+    $description = sanitizeInput($body, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
+    $latitude = sanitizeInput($body, 'latitude', FILTER_VALIDATE_FLOAT);
+    $longitude = sanitizeInput($body, 'longitude', FILTER_VALIDATE_FLOAT);
 
-    if (!$name || !$contact || !$openingHours || !$description || !$latitude || !$longitude) {
-        responseError('Preencha todas as informações para cadastrar um novo lugar.', 400);
-    }
+    if (!$name) responseError('Nome do local ausente. Insira para prosseguir.', 400);
+    if (!$contact) responseError('Contato do local ausente. Insira para prosseguir.', 400);
+    if (!$openingHours) responseError('Horário de funcionamento do local ausente. Insira para prosseguir.', 400);
+    if (!$description) responseError('Descrição do local ausente. Insira para prosseguir.', 400);
+    if (!$latitude) responseError('Latitude do local ausente. Insira para prosseguir.', 400);
+    if (!$longitude) responseError('Longitude do local ausente. Insira para prosseguir.', 400);
 
-    $places = readFileContent(ARQUIVO_TXT);
 
+    $places = readFileContent(FILE_CITY);
     foreach ($places as $place) {
         if ($place->name === $name) {
             responseError('Este lugar já está cadastrado.', 409);
         }
     }
 
-    $data = [
-        'id' => $_SERVER['REQUEST_TIME'], // timestamp da requisição, uso didático
-        'name' => $name,
-        'contact' => $contact,
-        'openingHours' => $openingHours,
-        'description' => $description,
-        'latitude' => $latitude,
-        'longitude' => $longitude
-    ];
-
-    array_push($places, $data);
-    saveFileContent(ARQUIVO_TXT, $places);
-
-    response($data, 201);
+    $place = new Place($name);
+    $place->setContact($contact);
+    $place->setOpeningHours($openingHours);
+    $place->setDescription($description);
+    $place->setLatitude($latitude);
+    $place->setLongitude($longitude);
+    $place->save();
 } else if ($method === 'GET' && !isset($_GET['id'])) {
-    $places = readFileContent(ARQUIVO_TXT);
+    $place = new Place();
+    $places = $place->getAllPlaces();
 
     response($places, 200);
 } else if ($method === 'DELETE') {
-    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+    $id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false);
 
     if (!$id) {
         responseError('ID ausente', 400);
     }
 
-    $places = readFileContent(ARQUIVO_TXT);
-
-    foreach ($places as $key => $place) {
-        if ($place->id === $id) {
-            unset($places[$key]);
-
-            saveFileContent(ARQUIVO_TXT, $places);
-            response('', 204);
-        }
-    }
-    responseError('ID não encontrado', 404);
+    $place = new Place();
+    $place->deletePlace($id);
 } else if ($method === 'PUT') {
     $body = getBody();
-    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+    $id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false);
 
     if (!$id) {
         responseError('ID ausente', 400);
     }
 
-    $places = readFileContent(ARQUIVO_TXT);
-
-    foreach ($places as $key => $place) {
-        if ($place->id === $id) {
-            foreach ($body as $field => $value) {
-                if (property_exists($place, $field)) {
-                    if ($field === 'latitude' || $field === 'longitude') {
-                        $places[$key]->$field = filter_var($value, FILTER_VALIDATE_FLOAT);
-                        continue;
-                    }
-
-                    $places[$key]->$field = sanitizeString($value);
-                }
-            }
-            saveFileContent(ARQUIVO_TXT, $places);
-            response($places[$key], 200);
-        }
-    }
-    responseError('ID não encontrado', 404);
+    $place = new Place();
+    $places = $place->updatePlace($id, $body);
 } else if ($method === 'GET' && isset($_GET['id'])) {
-    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
-
+    $id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false);
     if (!$id) {
         responseError('ID ausente', 400);
     }
 
-    $places = readFileContent(ARQUIVO_TXT);
-
-    foreach ($places as $place) {
-        if ($place->id === $id) {
-            response($place, 200);
-        }
-    }
-
-    responseError('Lugar não encontrado', 404);
+    $place = new Place();
+    $foundPlace = $place->getPlaceById($id);
 }
