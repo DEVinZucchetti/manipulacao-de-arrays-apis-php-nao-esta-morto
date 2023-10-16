@@ -1,6 +1,7 @@
 <?php
 require_once 'config.php';
 require_once 'util.php';
+require_once 'models/Review.php'
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -75,4 +76,14 @@ if ($method === 'POST') {
             response($item, 200);
         }
     }
+
+    $review = new Review($place_id);
+    $review->setName($name);
+    $review->setEmail($email);
+    $review->setStars($stars);
+    $review->setStatus($status);
+    $review->save();
+
+    response(['message' => 'Cadastrado com sucesso', 201]);
+
 }
