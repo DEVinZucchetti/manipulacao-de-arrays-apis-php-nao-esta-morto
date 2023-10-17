@@ -35,13 +35,13 @@ if ($method === "POST") {
     }
 
     $review = new Review($place_id);
-
     $review -> setName($name);
     $review -> setEmail($email);
     $review -> setStars($stars);    
     $review -> setStatus($status);
+    $review -> save() ;
 
-    
+    response(["message" => "Cadastrado com sucesso"], 201);
 
        
 }
