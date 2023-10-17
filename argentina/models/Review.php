@@ -15,7 +15,7 @@ class Review
 {
     private $id, $place_id, $name, $email, $stars, $date, $status;
 
-    public function __construct($place_id)
+    public function __construct($place_id = null)
     {
         $this->id = uniqid();
         $this->place_id = $place_id;

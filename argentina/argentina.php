@@ -1,6 +1,7 @@
 <?php
 require_once 'config.php';
 require_once 'utils.php';
+require_once 'Place.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -31,6 +32,13 @@ if ($method === 'POST') {
         responseError(409, 'O item já existe');
     }
 
+    $place = new Place($name);
+    $place->setContact($contact);
+    $place->setOpening_hours($opening_hours);
+    $place->setDescription($description);
+    $place->setLatitude($latitude);
+    $place->setLongitude($longitude);
+    $place->save();
 
     $data = [
         'id' => $_SERVER['REQUEST_TIME'],
@@ -50,25 +58,21 @@ if ($method === 'POST') {
 
     response(201, $data);
 } else if ($method === 'GET' && !isset($_GET['id'])) {
-    $allData = readFileContent(FILE_CITY);
-    response(200, $allData);
+    $places = (New Place())->list();
+    response(200, $places);
 } else if ($method === 'DELETE') {
-    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+    $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
     if (!$id) {
         responseError(400, 'ID ausente');
     }
 
-    $allData = readFileContent(FILE_CITY);
-
-    $itemsFiltered = array_values(array_filter($allData, function ($item) use ($id) {
-        if ($item->id !== $id) return true;
-        return false;
-    }));
+    $place = new place;
+    $place->delete($id); 
 
     saveFileContent(FILE_CITY, $itemsFiltered);
     response(204, ['message' => 'Deletado com sucesso!']);
 } else if ($method === 'GET' && $_GET['id']) {
-    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+    $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (!$id) {
         responseError(400, 'ID ausente');
@@ -85,7 +89,7 @@ if ($method === 'POST') {
 
     $body = getBody();
 
-    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+    $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
 
     $allData = readFileContent((FILE_CITY));
 
@@ -101,5 +105,5 @@ if ($method === 'POST') {
     }
 
     saveFileContent(FILE_CITY, $allData);
-    response(200, []);
+    response(200, ['message' => 'Atualizado com sucesso!']);
 }
