@@ -15,8 +15,7 @@ if ($method === "POST") {
     $place_id = sanitizeInput($body, "place_id", FILTER_VALIDATE_INT);
     $name = sanitizeInput($body, "name", FILTER_SANITIZE_SPECIAL_CHARS);
     $email = sanitizeInput($body, "email", FILTER_VALIDATE_EMAIL);
-    $stars = sanitizeInput($body, "stars", FILTER_VALIDATE_FLOAT);
-    $date = (new DateTime())-> format("d/m/Y h:m");
+    $stars = sanitizeInput($body, "stars", FILTER_VALIDATE_FLOAT);  
     $status = sanitizeInput($body, "status", FILTER_SANITIZE_SPECIAL_CHARS);   
    
     // 3. valido os dados
@@ -36,11 +35,13 @@ if ($method === "POST") {
     }
 
     $review = new Review($place_id);
+
     $review -> setName($name);
     $review -> setEmail($email);
-    $review -> setStars($stars);
-    $review -> setDate($date);
+    $review -> setStars($stars);    
     $review -> setStatus($status);
+
+    
 
        
 }

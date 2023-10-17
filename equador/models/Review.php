@@ -7,7 +7,7 @@ class Review
     {
         $this->id = uniqid();
         $this->place_id = $place_id;
-        
+       $this->date = (new DateTime())-> format("d/m/Y h:m");
 
     }
 
@@ -47,10 +47,7 @@ class Review
     {
         return $this->date;
     }
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }  
+   
 
     public function getStatus()
     {
