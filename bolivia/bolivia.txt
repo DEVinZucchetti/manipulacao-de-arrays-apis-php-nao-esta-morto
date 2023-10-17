@@ -1,6 +1,6 @@
 [
   {
-    "id": 1696633902,
+    "id": "652dcb340edcb",
     "name": "Mi Teleferico - La Paz",
     "contact": "info@miteleferico.bo",
     "openingHours": "6:00 - 22:00",
@@ -9,7 +9,7 @@
     "longitude": -68.1450278
   },
   {
-    "id": 1696633945,
+    "id": "652dcb4c7200f",
     "name": "Salar de Uyuni",
     "contact": "info@salardeuyuni.com",
     "openingHours": "Aberto o ano todo",
@@ -18,7 +18,7 @@
     "longitude": -67.489
   },
   {
-    "id": 1696633959,
+    "id": "652dcb4de49bf",
     "name": "Cidade de Potosí",
     "contact": "info@potosi.travel",
     "openingHours": "Horário comercial",

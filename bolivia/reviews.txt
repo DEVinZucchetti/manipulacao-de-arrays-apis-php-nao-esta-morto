@@ -6,6 +6,6 @@
     "stars": 2,
     "status": "APROVADO",
     "date": "15/10/2023 21:45",
-    "place_id": 1696633945
+    "place_id": "652dcb340edcb"
   }
 ]

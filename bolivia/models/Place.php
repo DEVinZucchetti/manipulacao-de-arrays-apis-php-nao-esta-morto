@@ -7,7 +7,7 @@ class Place {
     private $id, $name, $contact, $openingHours, $description, $latitude, $longitude;
 
     public function __construct($name = null) {
-        $this->id = $_SERVER['REQUEST_TIME']; //apenas para estudo
+        $this->id = uniqid();
         $this->name = $name;
     }
 
@@ -25,7 +25,6 @@ class Place {
         $allData = $this->getAllPlaces();
         array_push($allData,  $data);
         saveFileContent(FILE_CITY, $allData);
-        response($data, 201);
     }
 
     public function getAllPlaces() {
@@ -38,7 +37,7 @@ class Place {
 
         foreach ($places as $place) {
             if ($place->id === $id) {
-                response($place, 200);
+                return $place;
             }
         }
         responseError('Lugar não encontrado', 404);
@@ -51,7 +50,7 @@ class Place {
             if ($place->id === $id) {
                 unset($places[$key]);
                 saveFileContent(FILE_CITY, $places);
-                response('', 204);
+                return;
             }
         }
         responseError('ID não encontrado', 404);
@@ -72,7 +71,7 @@ class Place {
                     }
                 }
                 saveFileContent(FILE_CITY, $places);
-                response($places[$key], 200);
+                return;
             }
         }
         responseError('ID não encontrado', 404);
