@@ -10,8 +10,7 @@ $controller = new PlaceController();
 if ($method === 'POST') {
     $controller->create();
 } else if ($method === 'GET' && !isset($_GET['id'])) {
-    $places = (new Place())->list();
-    response(200, $places);
+    $controller->list();
 } else if ($method === 'DELETE') {
     $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
     if (!$id) {

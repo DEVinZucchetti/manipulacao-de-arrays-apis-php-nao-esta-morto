@@ -38,4 +38,9 @@ class PlaceController {
 
     response(201, ['message' => 'Cadastrado com sucesso!']);
     }
+
+    public function list() {
+        $places = (new Place())->list();
+        response(200, $places);
+    }
 }
