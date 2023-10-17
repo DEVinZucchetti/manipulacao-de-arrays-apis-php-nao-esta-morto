@@ -34,21 +34,23 @@ class Place
         $allData = readFileContent(FILE_CITY);
         array_push($allData, $data);
         saveFileContent(FILE_CITY, $data);
-
     }
 
-    public function list() {
+    public function list()
+    {
         $allData = readFileContent(FILE_CITY);
         return $allData;
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $allData = readFileContent(FILE_CITY);
 
-    $itemsFiltered = array_values(array_filter($allData, function ($item) use ($id) {
-        if ($item->id !== $id) return true;
-        return false;
-    }));
+        $itemsFiltered = array_values(array_filter($allData, function ($item) use ($id) {
+            return $item->id !== $id;
+        }));
+
+        saveFileContent(FILE_CITY, $itemsFiltered);
     }
 
 
