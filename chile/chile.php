@@ -3,6 +3,7 @@ require_once "config.php";
 require_once "utils.php";
 
 $methods = $_SERVER['REQUEST_METHOD'];
+$controller = new PlaceController();
 
 if ($methods === "POST") {
     $body = getBody();

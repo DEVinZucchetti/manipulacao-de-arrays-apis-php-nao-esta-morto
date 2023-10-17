@@ -54,6 +54,6 @@ if ($method === 'POST') {
     if (!$id) responseError('ID da avaliação ausente. Insira para prosseguir.', 400);
     if (!$status) responseError('Status ausente. Insira para prosseguir.', 400);
 
-    $review = new Review();
+    $review = new Reviews();
     $reviewFound = $review->modifyReviewStatus($id, $status);
 }
