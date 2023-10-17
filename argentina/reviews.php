@@ -8,7 +8,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($method === 'POST') {
     $body = getBody();
 
-    $place_id = sanitizeInput($body, 'place_id', FILTER_VALIDATE_INT);
+    $place_id = sanitizeInput($body, 'place_id', FILTER_SANITIZE_SPECIAL_CHARS); 
     $name = sanitizeInput($body, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
     $email = sanitizeInput($body, 'email', FILTER_VALIDATE_EMAIL);
     $stars = sanitizeInput($body, 'stars', FILTER_VALIDATE_FLOAT);
@@ -41,7 +41,7 @@ if ($method === 'POST') {
     response(201, ['message' => 'Cadastrado com sucesso!']);
 } else if ($method === 'GET') {
 
-    $place_id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false);
+    $place_id = sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
 
     if (!$place_id) responseError(400, 'ID do lugar esta ausente');
 
@@ -50,7 +50,7 @@ if ($method === 'POST') {
 } else if ($method === 'PUT') {
 
     $body = getBody();
-    $id = sanitizeInput($_GET, 'id', FILTER_VALIDATE_INT, false);
+    $id = sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
 
     $status = sanitizeInput($body, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -59,4 +59,7 @@ if ($method === 'POST') {
     }
 
     $review = new Review();
+    $review->updateStatus($id, $status);
+
+    response(200, ['message' => 'Atualizado com sucesso!']);
 }
