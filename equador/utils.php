@@ -9,7 +9,7 @@ function readFileContent($fileName){
 }
 
 function saveFileContent($fileName, $content) {
-  file_put_contents($fileName, json_encode($content));
+  file_put_contents($fileName, json_encode($content, JSON_PRETTY_PRINT) );
 }
 
 function sanitizeString($value) {
@@ -28,6 +28,7 @@ function response($response, $status) {
   exit;
 }
 
+// funciones adicionales
 function debug($content) {
     echo "<pre>";
     echo var_dump(json_encode($content));
