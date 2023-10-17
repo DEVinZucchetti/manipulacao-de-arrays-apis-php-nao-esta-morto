@@ -11,7 +11,8 @@ class Review
        $this->date = (new DateTime())-> format("d/m/Y h:m");
     }
 
-    public function save(){
+    public function save()
+    {
         $data = [
             "id" => $this->getId(),
             "name" => $this->getName(),
@@ -23,9 +24,9 @@ class Review
 
         ];
 
-        $allData = readFileContent("reviews.txt");
+        $allData = readFileContent(FILE_REVIEWS);
         array_push($allData, $data);
-        saveFileContent("reviews.txt", $allData);
+        saveFileContent(FILE_REVIEWS, $allData);
     }
 
     public function getId()
