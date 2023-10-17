@@ -1,6 +1,7 @@
 <?php
 require_once "config.php";
 require_once "utils.php";
+require_once "models/Review.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 
@@ -30,11 +31,16 @@ if ($method === "POST") {
     
     foreach ($blacklist as $word){
         if(str_contains($name, $word )){
-        echo $word;
-       $name = str_replace($word, "[EDITADO PELO ADMIN]", $name);
+       $name = str_replace($word, "[EDITADO PELO ADMIN] 💔", $name);
     }
     }
 
-    echo $name;
-    
+    $review = new Review($place_id);
+    $review -> setName($name);
+    $review -> setEmail($email);
+    $review -> setStars($stars);
+    $review -> setDate($date);
+    $review -> setStatus($status);
+
+       
 }
