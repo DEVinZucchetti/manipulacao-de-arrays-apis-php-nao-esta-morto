@@ -4,7 +4,7 @@ require_once "utils.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 
-$blacklist =["polimorfismo", "herança", "abstração", "encapsulamento"];
+$blacklist =["polimorfismo", "heranca", "abstração", "encapsulamento"];
 
 // 1. pego body
 if ($method === "POST") {
@@ -18,38 +18,23 @@ if ($method === "POST") {
     $date = (new DateTime())-> format("d/m/Y h:m");
     $status = sanitizeInput($body, "status", FILTER_SANITIZE_SPECIAL_CHARS);   
    
-
+    // 3. valido os dados
     if (!$place_id) responseError("Id do lugar ausente", 400); 
     if (!$name) responseError("Descripcao da avaliacao ausente", 400); 
     if (!$email) responseError("Email inválido", 400); 
     if (!$stars) responseError("Quantidade de estrelas ausente", 400); 
     if (!$status) responseError("Quantidade da valiacao ausente", 400); 
-
     //validar name max:200 caracteres
     if(strlen($name) > 200) responseError("O texto ultrapassou o limite", 400); 
 
     
-   /* foreach ($blacklist as $word){
-        if(str_contains($name, $word ))
-        str_replace($word, "[EDITADO PELO ADMIN]", $name);}*/
-    
-//listagem-get
-    $allData = readFileContent(FILE_REVIEWS);
-    
-     $data = [
-        "place_id" => $place_id, 
-        "name" => $name,
-        "email" => $email,
-        "stars" => $stars,
-        "status" => $status,
-    ];
+    foreach ($blacklist as $word){
+        if(str_contains($name, $word )){
+        echo $word;
+       $name = str_replace($word, "[EDITADO PELO ADMIN]", $name);
+    }
+    }
 
-    saveFileContent(FILE_REVIEWS, $allData);
-    response($data, 201);
-
- } else if($method ="GET"){
-    $allData = readFileContent(FILE_REVIEWS);
-    response($allData,200);
+    echo $name;
+    
 }
-
-?>
