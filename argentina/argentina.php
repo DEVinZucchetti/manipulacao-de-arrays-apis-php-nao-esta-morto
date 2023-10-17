@@ -78,13 +78,9 @@ if ($method === 'POST') {
         responseError(400, 'ID ausente');
     }
 
-    $allData = readFileContent((FILE_CITY));
-
-    foreach ($allData as $item) {
-        if ($item->id === $id) {
-            response(200, $item);
-        }
-    }
+    $place = new Place();
+    $item = $place->listOne($id);
+    response(200, $item);
 } else if ($method === 'PUT') {
 
     $body = getBody();

@@ -71,6 +71,17 @@ class Place
         saveFileContent(FILE_CITY, $allData);
     }
 
+    public function listOne($id)
+    {
+        $allData = readFileContent(FILE_CITY);
+
+        foreach ($allData as $item) {
+            if ($item->id === $id) {
+                return $item;
+            }
+        }
+    }
+
 
     public function getName()
     {
