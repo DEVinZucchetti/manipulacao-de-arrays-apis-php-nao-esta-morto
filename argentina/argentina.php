@@ -49,14 +49,12 @@ if ($method === 'POST') {
         'latitude' => $latitude,
         'longitude' => $longitude
     ];
-
-
+    
     array_push($allData, $data);
-
 
     saveFileContent(FILE_CITY, $data);
 
-    response(201, $data);
+    response(201, ['message' => 'Cadastrado com sucesso!']);
 } else if ($method === 'GET' && !isset($_GET['id'])) {
     $places = (new Place())->list();
     response(200, $places);
