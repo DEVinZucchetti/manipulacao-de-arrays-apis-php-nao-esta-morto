@@ -53,6 +53,10 @@ class Place
         saveFileContent(FILE_CITY, $itemsFiltered);
     }
 
+    public function update($id, $data) {
+        
+    }
+
 
     public function getName()
     {

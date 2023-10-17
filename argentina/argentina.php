@@ -58,7 +58,7 @@ if ($method === 'POST') {
 
     response(201, $data);
 } else if ($method === 'GET' && !isset($_GET['id'])) {
-    $places = (New Place())->list();
+    $places = (new Place())->list();
     response(200, $places);
 } else if ($method === 'DELETE') {
     $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -66,10 +66,10 @@ if ($method === 'POST') {
         responseError(400, 'ID ausente');
     }
 
-    $place = new place;
-    $place->delete($id); 
+    $place = new place();
+    $place->delete($id);
 
-    saveFileContent(FILE_CITY, $itemsFiltered);
+
     response(204, ['message' => 'Deletado com sucesso!']);
 } else if ($method === 'GET' && $_GET['id']) {
     $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -91,7 +91,7 @@ if ($method === 'POST') {
 
     $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $allData = readFileContent((FILE_CITY));
+    $allData = readFileContent(FILE_CITY);
 
     foreach ($allData as $position => $item) {
         if ($item->id === $id) {
