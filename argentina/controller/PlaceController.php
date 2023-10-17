@@ -36,22 +36,6 @@ class PlaceController {
     $place->setLongitude($longitude);
     $place->save();
 
-    $data = [
-        'id' => $_SERVER['REQUEST_TIME'],
-        'name' => $name,
-        'contact' => $contact,
-        'opening_hours' => $opening_hours,
-        'description' => $description,
-        'latitude' => $latitude,
-        'longitude' => $longitude
-    ];
-    
-    array_push($allData, $data);
-
-    saveFileContent(FILE_CITY, $data);
-
     response(201, ['message' => 'Cadastrado com sucesso!']);
     }
 }
-
-?>
