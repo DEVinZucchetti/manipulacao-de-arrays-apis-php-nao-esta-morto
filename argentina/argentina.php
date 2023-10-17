@@ -66,7 +66,7 @@ if ($method === 'POST') {
         responseError(400, 'ID ausente');
     }
 
-    $place = new place();
+    $place = new Place();
     $place->delete($id);
 
 
@@ -88,22 +88,14 @@ if ($method === 'POST') {
 } else if ($method === 'PUT') {
 
     $body = getBody();
-
     $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $allData = readFileContent(FILE_CITY);
-
-    foreach ($allData as $position => $item) {
-        if ($item->id === $id) {
-            $allData[$position]->name = isset($body->name) ? $body->name : $item->name;
-            $allData[$position]->contact = isset($body->contact) ? $body->contact : $item->contact;
-            $allData[$position]->opening_hours = isset($body->opening_hours) ? $body->opening_hours : $item->opening_hours;
-            $allData[$position]->description = isset($body->description) ? $body->description : $item->description;
-            $allData[$position]->latitude = isset($body->latitude) ? $body->latitude : $item->latitude;
-            $allData[$position]->longitude = isset($body->longitude) ? $body->longitude : $item->longitude;
-        }
+    if (!$id) {
+        responseError(400, 'ID ausente');
     }
 
-    saveFileContent(FILE_CITY, $allData);
+    $place = new Place();
+    $place->update($id, $body);
+
     response(200, ['message' => 'Atualizado com sucesso!']);
 }
