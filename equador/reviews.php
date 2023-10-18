@@ -16,14 +16,13 @@ if ($method === "POST") {
     $name = sanitizeInput($body, "name", FILTER_SANITIZE_SPECIAL_CHARS);
     $email = sanitizeInput($body, "email", FILTER_VALIDATE_EMAIL);
     $stars = sanitizeInput($body, "stars", FILTER_VALIDATE_FLOAT);  
-    $status = sanitizeInput($body, "status", FILTER_SANITIZE_SPECIAL_CHARS);   
+    
    
     // 3. valido os dados
     if (!$place_id) responseError("Id do lugar ausente", 400); 
     if (!$name) responseError("Descripcao da avaliacao ausente", 400); 
     if (!$email) responseError("Email inválido", 400); 
-    if (!$stars) responseError("Quantidade de estrelas ausente", 400); 
-    if (!$status) responseError("Quantidade da valiacao ausente", 400); 
+    if (!$stars) responseError("Quantidade de estrelas ausente", 400);     
     //validar name max:200 caracteres
     if(strlen($name) > 200) responseError("O texto ultrapassou o limite", 400); 
 
@@ -37,8 +36,7 @@ if ($method === "POST") {
     $review = new Review($place_id);
     $review -> setName($name);
     $review -> setEmail($email);
-    $review -> setStars($stars);    
-    $review -> setStatus($status);
+    $review -> setStars($stars); 
     $review -> save() ;
 
     response(["message" => "Cadastrado com sucesso"], 201);
