@@ -28,8 +28,8 @@ if ($method === "POST") {
 
     
     foreach ($blacklist as $word){
-        if(str_contains($name, $word )){
-       $name = str_replace($word, "[EDITADO PELO ADMIN] 💔", $name);
+        if(str_contains(strtolower($name), $word )){
+       $name = str_ireplace($word, "[EDITADO PELO ADMIN] 💔", $name);
     }
     }
 
