@@ -1,5 +1,6 @@
 <?php
-define('ARQUIVO_TXT', 'bolivia.txt');
+define('FILE_CITY', 'bolivia.txt');
+define('FILE_REVIEWS', 'reviews.txt');
 
 header("Content-Type: application/json"); // a aplicação retorna json
 header("Access-Control-Allow-Origin: *"); // vai aceitar requisições de todas origens
