@@ -1,18 +1,15 @@
 <?php
 
 function getBody() {
-    return json_decode(file_get_contents("php://input"));
+    return json_decode(file_get_contents("php://input")); //pega o body no formato de string
 }
 
-function readFileContent($fileName){
-    if (file_exists($fileName)) {
-        return json_decode(file_get_contents($fileName));
-    }
-    return null;
+function readFileContent($fileName) {
+    return json_decode(file_get_contents($fileName));
 }
 
 function saveFileContent($fileName, $content) {
-    file_put_contents($fileName, json_encode($content));
+    file_put_contents($fileName, json_encode($content, JSON_PRETTY_PRINT));
 }
 
 function sanitizeString($value) {
@@ -31,11 +28,10 @@ function response($response, $status) {
     exit;
 }
 
-function getCityById($allData, $id) {
-    foreach ($allData as $item) {
-        if ($item->id === $id) {
-            return $item;
-        }
+function sanitizeInput($data, $property, $filterType, $isObject = true) {
+    if ($isObject) {
+        return isset($data->$property) ? filter_var($data->$property, $filterType) : null;
+    } else {
+        return isset($data[$property]) ? filter_var($data[$property], $filterType) : null;
     }
-    return null;
 }
