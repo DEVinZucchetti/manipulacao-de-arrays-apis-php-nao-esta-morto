@@ -13,7 +13,7 @@ class Review
 {
     private $id, $name, $email, $stars, $date, $status, $place_id;
 
-    public function __construct($place_id) 
+    public function __construct($place_id = null) 
     {
         $this->id = uniqid();
         $this->place_id = $place_id;
@@ -30,13 +30,25 @@ class Review
             "stars" => $this->getStars(),
             "date" => $this->getDate(),
             "status" => $this->getStatus(),
-            "place_id" => $this->getId(),
+            "place_id" => $this->getPlaceId()
 
         ];
 
-        $allData = readFileContent(FILE_REVIEWS);
+        $allData = readFileContent("reviews.txt");
         array_push($allData, $data);
-        saveFileContent(FILE_REVIEWS, $allData);
+        saveFileContent("reviews.txt", $allData);
+    }
+
+    public function list(){
+        $allData = readFileContent("reviews.txt");
+      
+        $filtered = array_values(array_filter($allData, function($review){
+            return $review-> place_id === $this->getPlaceId();
+
+        })) ;
+
+     
+        return $filtered;
     }
 
     public function getId()
@@ -87,7 +99,7 @@ class Review
     }
     
 
-    public function getPlace_id()
+    public function getPlaceId()
     {
         return $this->place_id;
     }

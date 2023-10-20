@@ -16,5 +16,68 @@
         "description": "Lugar bonito",
         "latitude": -1.433434,
         "longitude": 1.323234
+    },
+    {
+        "id": 1697582583,
+        "name": "Loja",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito",
+        "latitude": -1.433434,
+        "longitude": 1.323234
+    },
+    {
+        "id": 1697582589,
+        "name": "Salcedo",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito",
+        "latitude": -1.433434,
+        "longitude": 1.323234
+    },
+    {
+        "id": 1697731687,
+        "name": "Quito",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito",
+        "latitude": -1.433434,
+        "longitude": 1.323234
+    },
+    {
+        "id": 1697732079,
+        "name": "pillaro",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito",
+        "latitude": -1.433434,
+        "longitude": 1.323234
+    },
+    {
+        "id": 1697772524,
+        "name": "cuenca",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito",
+        "latitude": -1.433434,
+        "longitude": 1.323234
+    },
+    {
+        "id": 1697775002,
+        "name": "Pujili",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito, allullas",
+        "latitude": -1.433434,
+        "longitude": 1.323234
+    },
+    {
+        "id": 1697775403,
+        "name": "PANAMA",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito, allullas",
+        "latitude": -1.433434,
+        "longitude": 1.323234
     }
 ]
