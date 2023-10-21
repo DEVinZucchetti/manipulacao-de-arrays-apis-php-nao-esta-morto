@@ -33,23 +33,25 @@ if ($method === "POST") {
         responseError("O item ja existe", 409);
     }
 
-    $place= new Place($name);
+    $place = new Place($name);
     $place->setContact($contact);
     $place->setOpeningHours($opening_hours);
     $place->setDescription($description);
     $place->setLatitude($latitude);
     $place->setLongitude($longitude);
-    
-    response($data, 201);
+    $place->save();
+
+
+    response(["message" => "cadastrado com sucesso"], 201);
 } else if ($method === 'GET' && !isset($_GET['id'])) {
-    $places= (New Place())->list();
+    $places = (new Place())->list();
     response($places, 200);
 } else if ($method === "DELETE") {
-    $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
+    $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
 
 
     if (!$id) {
-        responseError("ID ausente", 400);       
+        responseError("ID ausente", 400);
     }
 
     $place = new Place();
@@ -57,32 +59,30 @@ if ($method === "POST") {
 
     response(["message" => "Deletado com sucesso"], 204);
 } else if ($method === "GET" && $_GET["id"]) {
-    $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
+    $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
 
 
     if (!$id) {
         responseError("ID ausente", 400);
     }
-    $allData = readFileContent(FILE_CITY);
 
+    $place = new Place();
+    $item = $place->listOne($id);
 
-    foreach ($allData as $item) {
-        if ($item->id === $id) {
-            response($item, 200);
-        }
-    }
+    response($item, 200);
+
 
     //pra atualizar os dados do cadastro
 } else if ($method === "PUT") {
     $body = getBody();
-    $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
+    $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
 
-    if(!$id){
+    if (!$id) {
         responseError("ID ausente", 400);
     }
 
-   $place = new Place();
-   $place->update($id,$body);
-   
-    response([],200);
+    $place = new Place();
+    $place->update($id, $body);
+
+    response(["message"=> "atualizado com sucesso"], 200);
 }

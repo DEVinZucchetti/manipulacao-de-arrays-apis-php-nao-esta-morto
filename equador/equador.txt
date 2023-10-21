@@ -79,5 +79,23 @@
         "description": "Lugar bonito, allullas",
         "latitude": -1.433434,
         "longitude": 1.323234
+    },
+    {
+        "id": "653406e8b4422",
+        "name": "Ambato",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito, allullas",
+        "latitude": -1.433434,
+        "longitude": 1.323234
+    },
+    {
+        "id": "653406f614e77",
+        "name": "Santo Domingo",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito, allullas",
+        "latitude": -1.433434,
+        "longitude": 1.323234
     }
 ]
