@@ -39,6 +39,7 @@ if ($method === "POST") {
     $place->setDescription($description);
     $place->setLatitude($latitude);
     $place->setLongitude($longitude);
+    $place->save();
     
   
     response($data, 201);
