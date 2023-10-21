@@ -1,4 +1,5 @@
 <?php 
+require_once "config.php";
 class Place{
     public $id;
     private $name;
@@ -11,6 +12,21 @@ class Place{
     public function __construct($name) {
         $this-> id = uniqid();
         $this-> name = $name();
+    }
+    public function save(){
+        $data = [
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "contact" => $this->getContact(),
+            "opening_hours" => $this->getOpeningHours(),
+            "description" => $this->getDescription(),
+            "latitude" => $this->getLatitude(),
+            "longitude" => $this->getLongitude()
+        ];
+    
+        $allData= readFileContent(FILE_CITY);
+        array_push($allData, $data);
+        saveFileContent(FILE_CITY, $allData);    
     }
 
   
@@ -35,12 +51,12 @@ class Place{
     }
 
   
-    public function getOpening_hours()
+    public function getOpeningHours()
     {
         return $this->opening_hours;
     }
 
-    public function setOpening_hours($opening_hours)
+    public function setOpeningHours($opening_hours)
     {
         $this->opening_hours = $opening_hours;
     }

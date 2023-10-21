@@ -1,6 +1,7 @@
 <?php
 require_once "config.php";
 require_once "utils.php";
+require_once "models/Place.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 
@@ -32,6 +33,7 @@ if ($method === "POST") {
         responseError("O item ja existe", 409);
     }
 
+   
 
     //5. antes de cadastrar veo si no hay un dato com o mismo nome
     $data = [
