@@ -33,7 +33,8 @@ if ($method === "POST") {
         responseError("O item ja existe", 409);
     }
 
-   
+    $place= new Place($name);
+
 
     //5. antes de cadastrar veo si no hay un dato com o mismo nome
     $data = [
