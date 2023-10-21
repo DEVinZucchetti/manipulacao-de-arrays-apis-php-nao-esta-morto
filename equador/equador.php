@@ -39,14 +39,11 @@ if ($method === "POST") {
     $place->setDescription($description);
     $place->setLatitude($latitude);
     $place->setLongitude($longitude);
-    $place->save();
     
-  
     response($data, 201);
 } else if ($method === 'GET' && !isset($_GET['id'])) {
-    $allData = readFileContent(FILE_CITY);
-    response($allData, 200);
-
+    $places= (New Place())->list();
+    response($places, 200);
 } else if ($method === "DELETE") {
     $id = filter_var($_GET["id"], FILTER_VALIDATE_INT);
 
