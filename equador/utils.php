@@ -34,7 +34,13 @@ function debug($content) {
     echo var_dump(json_encode($content));
     echo "</pre>";
  }
- 
- function sanitizeInput($data, $property, $filterType) {
-     return isset($data->$property) ? filter_var($data->$property, $filterType) : null;
+ //para validar objetos e array asociativos
+ function sanitizeInput($data, $property, $filterType, $isObject=true) {
+  if($isObject){
+    return isset($data->$property) ? filter_var($data->$property, $filterType) : null;
+  }else {
+    return isset($data[$property]) ? filter_var($data[$property], $filterType) : null;
+
+  }
+    
  }
