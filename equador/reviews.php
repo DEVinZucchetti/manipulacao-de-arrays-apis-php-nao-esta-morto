@@ -40,6 +40,7 @@ if ($method === "POST") {
     $review->save();
 
     response(["message" => "Cadastrado com sucesso"], 201);
+    
 } else if ($method = "GET") {
     var_dump($_GET);
     $place_id = sanitizeInput($_GET, "id", FILTER_SANITIZE_SPECIAL_CHARS, false);
@@ -48,4 +49,23 @@ if ($method === "POST") {
 
    $reviews = new Review($place_id);   
    response($reviews->list(), 200);
+
+   //pra atualizar status
+}else if($method === "PUT"){
+    echo "............";
+    $body = getBody();
+    $id = sanitizeInput($_GET, "id", FILTER_SANITIZE_SPECIAL_CHARS,false);
+
+    $status = sanitizeInput($body, "status", FILTER_SANITIZE_SPECIAL_CHARS);
+
+    if(!$status){
+        responseError("Status ausente",400);
+    }
+
+    $review =new Review();
+    $review->updateStatus($id,$status);
+
+    response(["message" => "Atualizado com sucesso"],200);
+
+
 }
