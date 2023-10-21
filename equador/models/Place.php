@@ -8,6 +8,12 @@ class Place{
     private $latitude;
     private $longitude;
 
-   
+    public function __construct($name) {
+        $this-> id = uniqid();
+        $this-> name = $name();
+    }
+
+  
+    
 }
 ?>
