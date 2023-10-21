@@ -28,6 +28,11 @@ class Place{
         array_push($allData, $data);
         saveFileContent(FILE_CITY, $allData);    
     }
+    public function list(){
+        $allData = readFileContent(FILE_CITY);
+        return $allData;
+    }
+
 
   
     public function getName()
