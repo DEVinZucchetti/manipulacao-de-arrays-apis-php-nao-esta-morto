@@ -14,6 +14,71 @@ class Place{
     }
 
   
+    public function getName()
+    {
+        return $this->name;
+    }  
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
     
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+    }
+
+  
+    public function getOpening_hours()
+    {
+        return $this->opening_hours;
+    }
+
+    public function setOpening_hours($opening_hours)
+    {
+        $this->opening_hours = $opening_hours;
+    }
+
+    
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+   
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+  
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
+
+       public function getId()
+    {
+        return $this->id;
+    }
 }
 ?>
