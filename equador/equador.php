@@ -40,23 +40,7 @@ if ($method === "POST") {
     $place->setLatitude($latitude);
     $place->setLongitude($longitude);
     
-
-
-    //5. antes de cadastrar veo si no hay un dato com o mismo nome
-    $data = [
-        "id" => $_SERVER["REQUEST_TIME"], // para uso didactico para poner un id con fecha y hora
-        "name" => $name,
-        "contact" => $contact,
-        "opening_hours" => $opening_hours,
-        "description" => $description,
-        "latitude" => $latitude,
-        "longitude" => $longitude
-    ];
-
-
-    array_push($allData, $data);
-    saveFileContent(FILE_CITY, $allData);
-
+  
     response($data, 201);
 } else if ($method === 'GET' && !isset($_GET['id'])) {
     $allData = readFileContent(FILE_CITY);
