@@ -9,7 +9,7 @@ class Place{
     private $latitude;
     private $longitude;
 
-    public function __construct($name) {
+    public function __construct($name=null) {
         $this-> id = uniqid();
         $this-> name = $name();
     }
@@ -33,7 +33,17 @@ class Place{
         return $allData;
     }
 
+    public function delete($id){
+        $allData = readFileContent(FILE_CITY);
 
+        $itemsFiltered = array_values(array_filter($allData, function ($item) use ($id) {
+            return $item->id !== $id;
+        }));
+    
+          
+        saveFileContent(FILE_CITY, $itemsFiltered);
+
+    }
   
     public function getName()
     {
