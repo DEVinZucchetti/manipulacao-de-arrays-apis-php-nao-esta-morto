@@ -34,6 +34,12 @@ if ($method === "POST") {
     }
 
     $place= new Place($name);
+    $place->setContact($contact);
+    $place->setOpeningHours($opening_hours);
+    $place->setDescription($description);
+    $place->setLatitude($latitude);
+    $place->setLongitude($longitude);
+    
 
 
     //5. antes de cadastrar veo si no hay un dato com o mismo nome
