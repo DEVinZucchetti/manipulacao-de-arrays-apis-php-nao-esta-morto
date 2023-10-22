@@ -1,4 +1,6 @@
 <?php 
+require_once "utils.php";
+require_once "models/Place.php";
 class PlaceController{
 
     public function create(){
@@ -57,6 +59,33 @@ class PlaceController{
         $place->delete($id);
     
         response(["message" => "Deletado com sucesso"], 204);
+    }
+
+    public function listOne(){
+        $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+    if (!$id) {
+        responseError("ID ausente", 400);
+    }
+
+    $place = new Place();
+    $item = $place->listOne($id);
+
+    response($item, 200);
+    }
+
+    public function update(){
+        $body = getBody();
+        $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
+    
+        if (!$id) {
+            responseError("ID ausente", 400);
+        }
+    
+        $place = new Place();
+        $place->update($id, $body);
+    
+        response(["message" => "atualizado com sucesso"], 200);
     }
 
 }
