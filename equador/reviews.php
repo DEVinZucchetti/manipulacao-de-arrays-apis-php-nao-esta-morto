@@ -20,13 +20,8 @@ if ($method === "POST") {
 
        
 } else if ($method = "GET") {
-    var_dump($_GET);
-    $place_id = sanitizeInput($_GET, "id", FILTER_SANITIZE_SPECIAL_CHARS, false);
-
-    if (!$place_id) responseError("ID do lugar está ausente", 400);
-
-   $reviews = new Review($place_id);   
-   response($reviews->list(), 200);
+    $controller->list();
+   
 
    //pra atualizar status
 }else if($method === "PUT"){
