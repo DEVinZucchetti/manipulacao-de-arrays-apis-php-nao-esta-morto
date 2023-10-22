@@ -10,29 +10,13 @@ $controller = new PlaceController();
 // 1. pego body
 if ($method === "POST") {
     $controller->create();
-    
 } else if ($method === 'GET' && !isset($_GET['id'])) {
     $controller->list();
-
 } else if ($method === "DELETE") {
-    $controller->delete();
-   
+    $controller->delete();   
 } else if ($method === "GET" && $_GET["id"]) {
     $controller->listOne();
-    
-
-
     //pra atualizar os dados do cadastro
 } else if ($method === "PUT") {
-    $body = getBody();
-    $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
-
-    if (!$id) {
-        responseError("ID ausente", 400);
-    }
-
-    $place = new Place();
-    $place->update($id, $body);
-
-    response(["message" => "atualizado com sucesso"], 200);
+    $controller->update();   
 }
