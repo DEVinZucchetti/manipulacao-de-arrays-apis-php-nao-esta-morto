@@ -25,20 +25,7 @@ if ($method === "POST") {
 
    //pra atualizar status
 }else if($method === "PUT"){
-    echo "............";
-    $body = getBody();
-    $id = sanitizeInput($_GET, "id", FILTER_SANITIZE_SPECIAL_CHARS,false);
-
-    $status = sanitizeInput($body, "status", FILTER_SANITIZE_SPECIAL_CHARS);
-
-    if(!$status){
-        responseError("Status ausente",400);
-    }
-
-    $review =new Review();
-    $review->updateStatus($id,$status);
-
-    response(["message" => "Atualizado com sucesso"],200);
+    $controller->update();  
 
 
 }
