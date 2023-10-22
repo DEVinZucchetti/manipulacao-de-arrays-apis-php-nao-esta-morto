@@ -97,5 +97,14 @@
         "description": "Lugar bonito, allullas",
         "latitude": -1.433434,
         "longitude": 1.323234
+    },
+    {
+        "id": "6534899c9f72d",
+        "name": "Puengasi",
+        "contact": "050104",
+        "opening_hours": "8:00 as 20:00",
+        "description": "Lugar bonito, allullas",
+        "latitude": -1.433434,
+        "longitude": 1.323234
     }
 ]
