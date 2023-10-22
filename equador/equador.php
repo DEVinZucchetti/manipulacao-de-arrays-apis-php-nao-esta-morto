@@ -5,47 +5,13 @@ require_once "models/Place.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 
+$controller = new PlaceController();
+
 // 1. pego body
 if ($method === "POST") {
-    $body = getBody();
-
-    // 2. pego os dados 
-    $name = sanitizeString($body->name);
-    $contact = sanitizeString($body->contact);
-    $opening_hours = sanitizeString($body->opening_hours);
-    $description = sanitizeString($body->description);
-    $latitude = filter_var($body->latitude, FILTER_VALIDATE_FLOAT);
-    $longitude = filter_var($body->longitude, FILTER_VALIDATE_FLOAT);
-
-
-    if (!$name || !$contact || !$opening_hours || !$description || !$latitude || !$longitude) {
-        responseError("Faltaram informacoes esenciais", 400); // 3. valido os dados
-
-    }
-
-    $allData = readFileContent(FILE_CITY); // 4. leo o arquivo
-
-    $itemWithSameName = array_filter($allData, function ($item) use ($name) {
-        return $item->name === $name;
-    });
-
-    if (count($itemWithSameName) > 0) {
-        responseError("O item ja existe", 409);
-    }
-
-    $place = new Place($name);
-    $place->setContact($contact);
-    $place->setOpeningHours($opening_hours);
-    $place->setDescription($description);
-    $place->setLatitude($latitude);
-    $place->setLongitude($longitude);
-    $place->save();
-
-
-    response(["message" => "cadastrado com sucesso"], 201);
+    $controller->create();
 } else if ($method === 'GET' && !isset($_GET['id'])) {
-    $places = (new Place())->list();
-    response($places, 200);
+    $controller->list();
 } else if ($method === "DELETE") {
     $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -84,5 +50,5 @@ if ($method === "POST") {
     $place = new Place();
     $place->update($id, $body);
 
-    response(["message"=> "atualizado com sucesso"], 200);
+    response(["message" => "atualizado com sucesso"], 200);
 }
