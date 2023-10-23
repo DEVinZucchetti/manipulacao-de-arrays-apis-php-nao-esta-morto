@@ -76,4 +76,4 @@ values
 delete from reviews  where id = 1
 
 select * from reviews 
-join places on reviews.place_id = places.id;
+INNER JOIN places on reviews.place_id = places.id;
