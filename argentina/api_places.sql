@@ -43,6 +43,7 @@ values
 );
 
 select * from places p 
+select id from places
 
 select * from places where id = 1
 
@@ -55,7 +56,9 @@ delete from places where id = 1
 update places 
  set description = 'Praça linda',
  opening_hours  = 'Aberto das 8h até as 22h'
- where id = 1
+ where id = 1 
+
+delete from reviews  where id = 1
  
  insert into reviews (
 name,
@@ -73,7 +76,7 @@ values
 'APROVADO'
 );
 
-delete from reviews  where id = 1
 
-select * from reviews 
-INNER JOIN places on reviews.place_id = places.id;
+select r.id, r.name, r.email, r.starts, r.status, r.date, p.place_name 
+from reviews AS r 
+INNER JOIN places AS p ON r.place_id = p.id; 
