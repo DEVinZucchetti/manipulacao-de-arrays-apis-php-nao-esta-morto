@@ -52,3 +52,18 @@ SELECT * FROM places
 
 --4.3 SQL para Listar uma Informação Específica com Base no ID na Tabela Places:
 SELECT * FROM places WHERE id = 1
+
+-- exercício 5 - Update e Delete - Places
+--5.1 SQL para Atualizar Informações na Tabela Place:
+UPDATE places 
+		SET description = 'Espaço para explorar a cultura e dança',
+			opening_hours = 'Aberto diariamente das 09:00 ao 16:00'
+	WHERE id = 2
+
+--5.2 SQL para Deletar Informações da Tabela Places:
+DELETE FROM places WHERE id = 3
+
+
+
+
+
