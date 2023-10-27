@@ -63,7 +63,25 @@ UPDATE places
 --5.2 SQL para Deletar Informações da Tabela Places:
 DELETE FROM places WHERE id = 3
 
+-- exercício 6 - INSERT, SELECT- REVIEWS
+-- 6.1 SQL para Inserir Dados na Tabela Reviews:
+INSERT  INTO reviews(
+	place_id,
+	name,
+	email,
+	stars,
+	date, 
+	status 
+	)
+VALUES(
+	2,
+	'Praça da Cultura',
+	'praca.cultura@gov.br',
+	4,
+	'2023-10-21', 
+	'APROVADO'
+	);
 
-
-
-
+-- 6.2 SQL para Listar Todas as Informações na Tabela Reviews:
+SELECT * FROM reviews r 
+INNER JOIN places p ON r.place_id = p.id;
