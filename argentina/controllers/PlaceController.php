@@ -1,7 +1,8 @@
 <?php
 
-require_once 'utils.php';
-require_once 'models/Place.php';
+require_once '../utils.php';
+require_once '../models/Place.php';
+require_once '../models/PlaceDAO.php';
 class PlaceController
 {
     public function create()
@@ -21,10 +22,10 @@ class PlaceController
         }
 
 
-        $allData = readFileContent(FILE_CITY);
+        /*  $allData = readFileContent(FILE_CITY);
 
 
-        $itemWithSameName = array_filter($allData, function ($item) use ($name) {
+         $itemWithSameName = array_filter($allData, function ($item) use ($name) {
             return $item->name === $name;
         });
 
@@ -32,13 +33,18 @@ class PlaceController
             responseError(409, 'O item já existe');
         }
 
+        */
+
         $place = new Place($name);
         $place->setContact($contact);
         $place->setOpening_hours($opening_hours);
         $place->setDescription($description);
         $place->setLatitude($latitude);
         $place->setLongitude($longitude);
-        $place->save();
+
+        $placeDAO = new PlaceDAO();
+
+        $placeDAO->insert($place);
 
         response(201, ['message' => 'Cadastrado com sucesso!']);
     }
