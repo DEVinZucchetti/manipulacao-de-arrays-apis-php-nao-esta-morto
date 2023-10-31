@@ -82,11 +82,11 @@ class PlaceController
             responseError(400, 'ID ausente');
         }
 
-        $place = new Place();
-        $place->delete($id);
+        $placeDAO = new PlaceDAO();
+        $item = $placeDAO->findOne($id);  
 
 
-        response(204, ['message' => 'Deletado com sucesso!']);
+        response(200, $item);
     }
 
     public function update()
@@ -99,7 +99,7 @@ class PlaceController
         }
 
         $placeDAO = new PlaceDAO();
-        $placeDAO->updateOne($id, $body);
+        $placeDAO->updateOne($id, $body); 
 
         response(200, ['message' => 'Atualizado com sucesso!']);
     }
