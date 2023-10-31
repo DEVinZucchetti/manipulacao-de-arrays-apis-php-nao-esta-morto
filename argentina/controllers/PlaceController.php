@@ -98,8 +98,8 @@ class PlaceController
             responseError(400, 'ID ausente');
         }
 
-        $place = new Place();
-        $place->update($id, $body);
+        $placeDAO = new PlaceDAO();
+        $placeDAO->updateOne($id, $body);
 
         response(200, ['message' => 'Atualizado com sucesso!']);
     }
