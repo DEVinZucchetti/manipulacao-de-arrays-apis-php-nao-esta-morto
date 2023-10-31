@@ -19,29 +19,6 @@ class Place
         $this->name = $name;
     }
 
-    public function save()
-    {
-        $data = [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'contact' => $this->getContact(),
-            'opening_hours' => $this->getOpening_hours(),
-            'description' => $this->getDescription(),
-            'latitude' => $this->getLatitude(),
-            'longitude' => $this->getLongitude()
-        ];
-
-        $allData = readFileContent(FILE_CITY);
-        array_push($allData, $data);
-        saveFileContent(FILE_CITY, $data);
-    }
-
-    public function list()
-    {
-        $allData = readFileContent(FILE_CITY);
-        return $allData;
-    }
-
     public function delete($id)
     {
         $allData = readFileContent(FILE_CITY);

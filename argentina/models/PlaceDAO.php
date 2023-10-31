@@ -57,15 +57,22 @@ class PlaceDAO {
     }
 
     public function findMany() {
+        $sql = "select * from places order by name";
 
+        $statement = ($this->getConnection())->prepare($sql);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC); 
+        
     }
 
     public function findOne() {
 
     }
 
-    public function delete() {
-
+    public function deleteOne($id) {
+        $sql = "delete from places where id = :id_value";
     }
 
     public function status() {

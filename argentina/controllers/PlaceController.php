@@ -44,15 +44,21 @@ class PlaceController
 
         $placeDAO = new PlaceDAO();
 
-        $placeDAO->insert($place);
+        $result = $placeDAO->insert($place);
 
-        response(201, ['message' => 'Cadastrado com sucesso!']);
+        if($result['sucess'] === true) {
+            response(201, ['message' => 'Cadastrado com sucesso!']);
+
+        } else {
+            responseError(400, "Não foi possível realizar o cadastro!");
+        }
     }
 
     public function list()
     {
-        $places = (new Place())->list();
-        response(200, $places);
+        $placeDAO = new PlaceDAO();
+        $result = $placeDAO->findMany();
+        response(200, $result); 
     }
 
     public function delete()
@@ -63,10 +69,10 @@ class PlaceController
             responseError(400, 'ID ausente');
         }
 
-        $place = new Place();
-        $place->delete($id);
+        $placeDAO = new PlaceDAO();
+        $placeDAO->deleteOne($id);
 
-        response(200, ['message' => 'Deletado com sucesso!']);
+        response(204, ['message' => 'Deletado com sucesso!']);
     }
 
     public function listOne()
