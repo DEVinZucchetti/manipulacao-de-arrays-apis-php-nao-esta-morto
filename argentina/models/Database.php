@@ -5,7 +5,7 @@ class Database {
     private $host = 'localhost';
     private $username = 'docker';
     private $password = 'docker';
-    private $dbname = 'api_places';
+    private $dbname = 'api_places_database';
 
     private $connection; 
 
