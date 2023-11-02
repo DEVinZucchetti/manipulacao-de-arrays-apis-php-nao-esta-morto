@@ -24,18 +24,6 @@ class Review
         return $filtered;
     }
 
-    public function updateStatus($id, $status)
-    {
-        $allData = readFileContent('reviews.txt');
-
-        foreach ($allData as $position => $item) {
-            if ($item->id === $id) {
-                $allData[$position]->status = $status;
-            }
-        }
-        saveFileContent('reviews.txt', $allData);
-    }
-
     public function getId()
     {
         return $this->id;

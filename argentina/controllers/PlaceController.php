@@ -21,20 +21,6 @@ class PlaceController
             responseError(400, 'Faltaram informações!');
         }
 
-
-        /*  $allData = readFileContent(FILE_CITY);
-
-
-         $itemWithSameName = array_filter($allData, function ($item) use ($name) {
-            return $item->name === $name;
-        });
-
-        if (count($itemWithSameName) > 0) {
-            responseError(409, 'O item já existe');
-        }
-
-        */
-
         $place = new Place($name);
         $place->setContact($contact);
         $place->setOpening_hours($opening_hours);
