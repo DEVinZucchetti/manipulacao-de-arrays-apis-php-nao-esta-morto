@@ -1,7 +1,9 @@
 <?php 
 require_once 'Database.php';
 
-class ReviewDAO extends Database {
+class ReviewDAO extends Database 
+
+{
     public function insert(Review $review)
     {
 
@@ -43,6 +45,17 @@ class ReviewDAO extends Database {
             debug($error->getMessage());
             return ['sucess' => false];
         }
+    }
+
+    public function findMany()
+    {
+        $sql = "select * from reviews order by name";
+
+        $statement = ($this->getConnection())->prepare($sql);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function findOne($id)

@@ -15,15 +15,6 @@ class Review
         $this->status = 'PENDENTE';
     }
 
-    public function list()
-    {
-        $allData = readFileContent('reviews.txt');
-        $filtered = array_values(array_filter($allData, function ($review) {
-            return $review->place_id === $this->getPlace_id();
-        }));
-        return $filtered;
-    }
-
     public function getId()
     {
         return $this->id;
