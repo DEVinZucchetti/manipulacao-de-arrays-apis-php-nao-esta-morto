@@ -54,15 +54,15 @@ class ReviewController {
 
     public function update() {
         $body = getBody();
-        $id =  sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
 
-        $status = sanitizeInput($body,  'status', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id =  sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
+        $status = sanitizeInput($body, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (!$id) responseError('ID da avaliação ausente. Insira para prosseguir.', 400);
         if (!$status) responseError('Status ausente. Insira para prosseguir.', 400);
 
-        $review = new Review();
-        $review->updateStatus($id, $status);
+        $reviewDAO = new ReviewDAO();
+        $reviewDAO->update($id, $status);
         response("Alteração de status para $status realizada com sucesso.", 200);
     }
 }
