@@ -1,12 +1,11 @@
 <?php
-require_once 'config.php';
-require_once 'utils.php';
+require_once '../config.php';
+require_once '../utils.php';
 
 class Place {
     private $id, $name, $contact, $openingHours, $description, $latitude, $longitude;
 
     public function __construct($name) {
-        $this->id = uniqid();
         $this->name = $name;
     }
 
