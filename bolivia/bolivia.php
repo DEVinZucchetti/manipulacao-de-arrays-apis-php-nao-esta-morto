@@ -15,5 +15,5 @@ if ($method === 'POST') {
 } else if ($method === 'PUT') {
     $controller->update();
 } else if ($method === 'GET' && isset($_GET['id'])) {
-    $controller->getPlaceById();
+    $controller->listOne();
 }

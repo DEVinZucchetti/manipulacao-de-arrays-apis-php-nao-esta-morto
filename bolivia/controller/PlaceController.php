@@ -45,14 +45,15 @@ class PlaceController {
     }
 
 
-    public function getPlaceById() {
+    public function listOne() {
         $id = sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
+
         if (!$id) {
             responseError('ID ausente', 400);
         }
 
-        $place = new Place();
-        $foundPlace = $place->getPlaceById($id);
+        $PlaceDAO = new PlaceDAO();
+        $foundPlace = $PlaceDAO->findOne($id);
         response($foundPlace, 200);
     }
 
@@ -63,9 +64,9 @@ class PlaceController {
             responseError('ID ausente', 400);
         }
 
-        $place = new Place();
-        $place->deletePlace($id);
-        response(['message' => 'Lugar removido com sucesso.'], 200);
+        $PlaceDAO = new PlaceDAO();
+        $PlaceDAO->delete($id);
+        response(['message' => 'Deletado com sucesso'], 204);
     }
 
     public function update() {
@@ -76,8 +77,8 @@ class PlaceController {
             responseError('ID ausente', 400);
         }
 
-        $place = new Place();
-        $place->updatePlace($id, $body);
+        $PlaceDAO = new PlaceDAO();
+        $PlaceDAO->update($id, $body);
         response(['message' => 'Informações do lugar atualizadas com sucesso.'], 200);
     }
 }

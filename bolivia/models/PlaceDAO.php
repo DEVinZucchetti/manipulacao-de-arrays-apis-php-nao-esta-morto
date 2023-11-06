@@ -59,4 +59,50 @@ class PlaceDAO {
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function findOne($id) {
+        $sql = "SELECT * FROM places WHERE id = :id_value";
+
+        $statement = ($this->getConnection())->prepare($sql);
+        $statement->bindValue(':id_value', $id);
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function delete($id) {
+        $sql = "DELETE FROM places WHERE id = :id_value";
+
+        $statement = ($this->getConnection())->prepare($sql);
+        $statement->bindValue(':id_value', $id);
+        $statement->execute();
+    }
+
+    public function update($id, $data) {
+        $placeInDatabase = $this->findOne($id);
+
+        $sql = "UPDATE places SET 
+            name = :name, 
+            contact = :contact, 
+            opening_hours = :opening_hours, 
+            description = :description, 
+            latitude = :latitude, 
+            longitude = :longitude
+            WHERE id = :id_value";
+
+        $statement = ($this->getConnection())->prepare($sql);
+
+        $statement->bindValue(":name", isset($data->name) ? $data->name : $placeInDatabase['name']);
+        $statement->bindValue(":contact", isset($data->contact) ? $data->contact : $placeInDatabase['contact']);
+        $statement->bindValue(":opening_hours", isset($data->opening_hours) ? $data->opening_hours : $placeInDatabase['opening_hours']);
+        $statement->bindValue(":description", isset($data->description) ? $data->description : $placeInDatabase['description']);
+        $statement->bindValue(":latitude", isset($data->latitude) ? $data->latitude : $placeInDatabase['latitude']);
+        $statement->bindValue(":longitude", isset($data->longitude) ? $data->longitude : $placeInDatabase['longitude']);
+        $statement->bindValue(":id_value", $id);
+
+        $statement->execute();
+
+        return ['success' => true];
+    }
 }
