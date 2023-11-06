@@ -1,16 +1,7 @@
 <?php
+require_once 'Database.php';
 
-class PlaceDAO {
-    private $connection;
-
-    public function __construct() {
-        $this->connection = new PDO("pgsql:host=localhost;dbname=api_places", "bolivia_places", "bolivia");
-    }
-
-    public function getConnection() {
-        return $this->connection;
-    }
-
+class PlaceDAO extends Database {
     public function insert(Place $place) {
         try {
             $sql = "INSERT INTO places 

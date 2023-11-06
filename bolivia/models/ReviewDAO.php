@@ -1,17 +1,7 @@
 <?php
+require_once 'Database.php';
 
-class ReviewDAO {
-    private $connection;
-
-    public function __construct() {
-        $this->connection = new PDO("pgsql:host=localhost;dbname=api_places", "bolivia_places", "bolivia");
-    }
-
-    public function getConnection() {
-        return $this->connection;
-    }
-
-
+class ReviewDAO extends Database {
     public function insert(Review $review) {
         try {
             $sql = "INSERT INTO reviews 
