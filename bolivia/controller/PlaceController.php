@@ -1,7 +1,7 @@
 <?php
 require_once 'utils.php';
 require_once 'models/Place.php';
-
+require_once 'models/PlaceDAO.php';
 
 class PlaceController {
     public function create() {
@@ -21,28 +21,29 @@ class PlaceController {
         if (!$latitude) responseError('Latitude do local ausente. Insira para prosseguir.', 400);
         if (!$longitude) responseError('Longitude do local ausente. Insira para prosseguir.', 400);
 
-        $places = readFileContent(FILE_CITY);
-        foreach ($places as $place) {
-            if ($place->name === $name) {
-                responseError('Este lugar já está cadastrado.', 409);
-            }
-        }
-
         $place = new Place($name);
         $place->setContact($contact);
         $place->setOpeningHours($openingHours);
         $place->setDescription($description);
         $place->setLatitude($latitude);
         $place->setLongitude($longitude);
-        $place->save();
 
-        response(['message' => 'Lugar cadastrado com sucesso.'], 201);
+        $placeDAO = new PlaceDAO();
+        $result = $placeDAO->insert($place);
+
+        if ($result['success'] === true) {
+            response(["message" => "Cadastrado com sucesso"], 201);
+        } else {
+            responseError("Não foi possível realizar o cadastro", 400);
+        }
     }
 
-    public function getAllPlaces() {
-        $places = (new Place())->getAllPlaces();
-        response($places, 200);
+    public function list() {
+        $placeDAO = new PlaceDAO();
+        $result = $placeDAO->findMany();
+        response($result, 200);
     }
+
 
     public function getPlaceById() {
         $id = sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
