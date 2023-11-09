@@ -1,19 +1,25 @@
-CREATE TABLE lugares (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    endereco VARCHAR(255),
-    cidade VARCHAR(100),
-    estado VARCHAR(50),
-    PRIMARY KEY (id)
+CREATE TABLE places (
+	id serial PRIMARY KEY,
+	name varchar(150) NOT NULL,
+	contact varchar(20),
+	opening_hours varchar(100),
+	description TEXT,
+	latitude float UNIQUE NOT NULL,
+	longitude float UNIQUE NOT NULL,
+	created_at timestamp WITH time zone DEFAULT NOW()
 );
 
-CREATE TABLE reviews (
-    id SERIAL PRIMARY KEY,
-    lugar_id INT NOT NULL,
-    usuario VARCHAR(100) NOT NULL,
-    comentario TEXT,
-    avaliacao INT,
-    data_avaliacao DATE,
-    FOREIGN KEY (lugar_id) REFERENCES lugares(id),
-    PRIMARY KEY (id)
-);
+-- exercício 3 - Tabela Reviews
+CREATE TYPE status_reviews AS enum('PENDENTE', 'APROVADO', 'REJEITADO');
+
+CREATE TABLE reviews(
+	id serial PRIMARY KEY,
+	place_id integer,
+	name text NOT NULL,
+	email varchar(150),
+	stars decimal(2,1),
+	date timestamp,
+	status status_reviews DEFAULT 'PENDENTE',
+	created_at timestamp WITH time zone DEFAULT NOW(),
+	FOREIGN KEY (place_id) REFERENCES places(id)
+)
