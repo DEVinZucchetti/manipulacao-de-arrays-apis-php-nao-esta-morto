@@ -56,6 +56,23 @@ class ReviewDAO {
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-}
 
+    public function updateStatus($reviewId, $newStatus) {
+        try {
+            $sql = "UPDATE reviews SET status = :newStatus WHERE id = :reviewId";
+
+            $statement = ($this->getConnection())->prepare($sql);
+
+            $statement->bindValue(':reviewId', $reviewId);
+            $statement->bindValue(':newStatus', $newStatus);
+
+            $statement->execute();
+
+            return ['success' => true];
+        } catch (PDOException $error) {
+            debug($error->getMessage());
+            return ['success' => false];
+        };
+    }
+}
 ?>
