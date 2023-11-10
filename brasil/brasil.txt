@@ -16,5 +16,14 @@
         "description": "Perto do Drew",
         "latitude": -1.4399349349,
         "longitude": 1.3223232323
+    },
+    {
+        "id": 1696883950,
+        "name": "Drew2",
+        "contact": "99994-4444",
+        "opening_hours": "08:00 \u00e0s 20:00",
+        "description": "Perto do Drew",
+        "latitude": -1.4399349349,
+        "longitude": 1.3223232323
     }
 ]
