@@ -1,7 +1,8 @@
 <?php
 
-require_once 'utils.php';
-require_once 'models/Place.php';
+require_once '../utils.php';
+require_once '../models/Place.php';
+require_once '../models/PlaceDAO.php';
 class PlaceController
 {
     public function create()
@@ -20,33 +21,30 @@ class PlaceController
             responseError(400, 'Faltaram informações!');
         }
 
-
-        $allData = readFileContent(FILE_CITY);
-
-
-        $itemWithSameName = array_filter($allData, function ($item) use ($name) {
-            return $item->name === $name;
-        });
-
-        if (count($itemWithSameName) > 0) {
-            responseError(409, 'O item já existe');
-        }
-
         $place = new Place($name);
         $place->setContact($contact);
         $place->setOpening_hours($opening_hours);
         $place->setDescription($description);
         $place->setLatitude($latitude);
         $place->setLongitude($longitude);
-        $place->save();
 
-        response(201, ['message' => 'Cadastrado com sucesso!']);
+        $placeDAO = new PlaceDAO();
+
+        $result = $placeDAO->insert($place);
+
+        if($result['sucess'] === true) {
+            response(201, ['message' => 'Cadastrado com sucesso!']);
+
+        } else {
+            responseError(400, "Não foi possível realizar o cadastro!");
+        }
     }
 
     public function list()
     {
-        $places = (new Place())->list();
-        response(200, $places);
+        $placeDAO = new PlaceDAO();
+        $result = $placeDAO->findMany();
+        response(200, $result); 
     }
 
     public function delete()
@@ -57,10 +55,10 @@ class PlaceController
             responseError(400, 'ID ausente');
         }
 
-        $place = new Place();
-        $place->delete($id);
+        $placeDAO = new PlaceDAO();
+        $placeDAO->deleteOne($id);
 
-        response(200, ['message' => 'Deletado com sucesso!']);
+        response(204, ['message' => 'Deletado com sucesso!']);
     }
 
     public function listOne()
@@ -70,11 +68,11 @@ class PlaceController
             responseError(400, 'ID ausente');
         }
 
-        $place = new Place();
-        $place->delete($id);
+        $placeDAO = new PlaceDAO();
+        $item = $placeDAO->findOne($id);  
 
 
-        response(204, ['message' => 'Deletado com sucesso!']);
+        response(200, $item);
     }
 
     public function update()
@@ -86,8 +84,8 @@ class PlaceController
             responseError(400, 'ID ausente');
         }
 
-        $place = new Place();
-        $place->update($id, $body);
+        $placeDAO = new PlaceDAO();
+        $placeDAO->updateOne($id, $body); 
 
         response(200, ['message' => 'Atualizado com sucesso!']);
     }
