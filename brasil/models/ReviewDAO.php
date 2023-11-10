@@ -47,6 +47,16 @@ class ReviewDAO extends Database
   }
  }
 
+ public function update($id, $status)
+ {
+  $sql = "UPDATE reviews SET status = :status WHERE id = :id_value";
+
+  $statement = ($this->getConnection())->prepare($sql);
+  $statement->bindValue(":status", $status);
+  $statement->bindValue(":id_value", $id);
+  $statement->execute();
+ }
+
  public function list($place_id)
  {
   $sql = "SELECT * from reviews where place_id = :id_value";
