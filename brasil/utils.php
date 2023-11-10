@@ -33,3 +33,12 @@ function response($response, $status)
  echo json_encode($response);
  exit;
 }
+
+function sanitizeInput($data, $property, $filterType, $isObject = true)
+{
+ if ($isObject) {
+  return isset($data->$property) ? filter_var($data->$property, $filterType) : null;
+ } else {
+  return isset($data[$property]) ? filter_var($data[$property], $filterType) : null;
+ }
+}
