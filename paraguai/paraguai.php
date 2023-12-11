@@ -29,7 +29,22 @@ $itemWithSameName = array_filter($allData, function ($item) use ($name) {
 
 if (count($itemWithSameName) > 0) {
     responseError('País já cadastrado!', 409);
+
+    $data = [
+    'id' => $_SERVER['REQUEST_TIME'],
+    'name' => $name,
+    'contact' => $contact,
+    'opening_hours' => $opening_hours,
+    'description' => $description,
+    'latitude' => $latitude,
+    'longitute' => $longitude
+    ];
+    array_push($allData, $data);
+    saveFileContent('paraguai.php', $alldata);
+
+    responseError("Cadastrado com sucesso!", 201);
 }
+
 else if ($method === 'GET' && !isset($_GET['id'])) {
     $allData = readFileContent('paraguai.txt');
     responseError($allData, 200);
