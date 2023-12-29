@@ -27,9 +27,14 @@ class PlaceDAO{
                                 :latitude_value,
                                 :longitude_value
                             };
-
             ";
         $statement = ($this->getConnection())->prepare($sql);
+        $statement->binValue(":name_value", $place->getName());
+        $statement->binValue(":contact_value", $place->getContact());
+        $statement->binValue(":opening_hours", $place->getOpeningHours());
+        $statement->binValue(":description", $place->getDescription());
+        $statement->binValue(":latitude_value", $place->getLatitude());
+        $statement->binValue(":longitude_value", $place->getLongitude());
     }
 
     public function findMany(){
