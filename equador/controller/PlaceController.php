@@ -40,7 +40,14 @@ class PlaceController{
 
     $placeDAO= new PlaceDAO();
 
-    $placeDAO->insert($place);
+    $result = $placeDAO->insert($place);
+
+    if($result['success'] === true){
+        response(["message" => " Cadastro com sucesso"], 201);
+    }else{
+        responseError("Nao foi possivel realizar o cadastro",400);
+    }
+
 
 
     response(["message" => "cadastrado com sucesso"], 201);
