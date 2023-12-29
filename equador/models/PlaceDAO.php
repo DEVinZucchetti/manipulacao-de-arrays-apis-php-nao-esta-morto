@@ -29,7 +29,7 @@ class PlaceDAO{
                             };
 
             ";
-
+        $statement = ($this->getConnection())->prepare($sql);
     }
 
     public function findMany(){
