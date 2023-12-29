@@ -35,6 +35,8 @@ class PlaceDAO{
         $statement->binValue(":description", $place->getDescription());
         $statement->binValue(":latitude_value", $place->getLatitude());
         $statement->binValue(":longitude_value", $place->getLongitude());
+
+        $statement->execute();
     }
 
     public function findMany(){
