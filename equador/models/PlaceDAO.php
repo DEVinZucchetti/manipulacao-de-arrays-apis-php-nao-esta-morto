@@ -5,11 +5,12 @@ class PlaceDAO{
 
     public function __construct()
     {
-        $this->connection = new PDO("pgsql:host=localhost;dbname=api_places","docker","docker");
+        $this->connection = new PDO("pgsql:host=localhost;dbname=api_places_database","docker","docker");
     }
 
     public function insert(Place $place){
-        $sql = "insert into places
+        try{
+            $sql = "insert into places
                             {
                                 name,
                                 contact,
@@ -29,6 +30,7 @@ class PlaceDAO{
                             };
             ";
         $statement = ($this->getConnection())->prepare($sql);
+
         $statement->binValue(":name_value", $place->getName());
         $statement->binValue(":contact_value", $place->getContact());
         $statement->binValue(":opening_hours", $place->getOpeningHours());
@@ -37,6 +39,12 @@ class PlaceDAO{
         $statement->binValue(":longitude_value", $place->getLongitude());
 
         $statement->execute();
+
+        return['success' => 'true'];
+        }catch (PDOException $error){
+            debug($error->getMessage());
+            return['success => false'];
+        }
     }
 
     public function findMany(){
