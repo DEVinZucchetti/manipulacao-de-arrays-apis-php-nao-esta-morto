@@ -1,7 +1,7 @@
 <?php 
-require_once "utils.php";
-require_once "models/Place.php";
-require_once "models/PlaceDAO.php";
+require_once "../utils.php";
+require_once "../models/Place.php";
+require_once "../models/PlaceDAO.php";
 class PlaceController{
 
     public function create(){
