@@ -8,7 +8,27 @@ class PlaceDAO{
         $this->connection = new PDO("pgsql:host=localhost;dbname=api_places","docker","docker");
     }
 
-    public function insert(){
+    public function insert(Place $place){
+        $sql = "insert into places
+                            {
+                                name,
+                                contact,
+                                opening_hours,
+                                description,
+                                latitude,
+                                longitude
+                            }
+                            values
+                            {
+                                :name_value,
+                                :contact_value,
+                                :opening_hours_value,
+                                :description_value,
+                                :latitude_value,
+                                :longitude_value
+                            };
+
+            ";
 
     }
 

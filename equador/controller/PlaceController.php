@@ -6,7 +6,7 @@ class PlaceController{
     public function create(){
         $body = getBody();
 
-    // 2. pego os dados 
+   // 2. pego os dados 
     $name = sanitizeString($body->name);
     $contact = sanitizeString($body->contact);
     $opening_hours = sanitizeString($body->opening_hours);
@@ -20,7 +20,7 @@ class PlaceController{
 
     }
 
-    $allData = readFileContent(FILE_CITY); // 4. leo o arquivo
+    /* $allData = readFileContent(FILE_CITY); // 4. leo o arquivo
 
     $itemWithSameName = array_filter($allData, function ($item) use ($name) {
         return $item->name === $name;
@@ -28,7 +28,7 @@ class PlaceController{
 
     if (count($itemWithSameName) > 0) {
         responseError("O item ja existe", 409);
-    }
+    }*/
 
     $place = new Place($name);
     $place->setContact($contact);
@@ -36,7 +36,10 @@ class PlaceController{
     $place->setDescription($description);
     $place->setLatitude($latitude);
     $place->setLongitude($longitude);
-    $place->save();
+
+    $placeDAO= new PlaceDAO();
+
+    $placeDAO->insert($place);
 
 
     response(["message" => "cadastrado com sucesso"], 201);
