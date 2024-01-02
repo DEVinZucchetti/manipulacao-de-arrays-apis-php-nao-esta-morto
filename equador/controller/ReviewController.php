@@ -63,8 +63,8 @@ class ReviewController{
             responseError("Status ausente",400);
         }
     
-        $review =new Review();
-        $review->updateStatus($id,$status);
+        $reviewDAO =new ReviewDAO();
+        $reviewDAO->updateOne($id,$status);
     
         response(["message" => "Atualizado com sucesso"],200);
     }
