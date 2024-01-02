@@ -31,12 +31,12 @@ class PlaceDAO{
             ";
         $statement = ($this->getConnection())->prepare($sql);
 
-        $statement->binValue(":name_value", $place->getName());
-        $statement->binValue(":contact_value", $place->getContact());
-        $statement->binValue(":opening_hours", $place->getOpeningHours());
-        $statement->binValue(":description", $place->getDescription());
-        $statement->binValue(":latitude_value", $place->getLatitude());
-        $statement->binValue(":longitude_value", $place->getLongitude());
+        $statement->bindValue(":name_value", $place->getName());
+        $statement->bindValue(":contact_value", $place->getContact());
+        $statement->bindValue(":opening_hours", $place->getOpeningHours());
+        $statement->bindValue(":description", $place->getDescription());
+        $statement->bindValue(":latitude_value", $place->getLatitude());
+        $statement->bindValue(":longitude_value", $place->getLongitude());
 
         $statement->execute();
 
@@ -48,6 +48,11 @@ class PlaceDAO{
     }
 
     public function findMany(){
+        $sql = "select * from places order by name ASC";
+        $statement = ($this->getConnection())->prepare($sql);
+
+        return $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
