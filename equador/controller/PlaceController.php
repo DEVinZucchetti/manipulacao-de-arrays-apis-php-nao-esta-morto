@@ -54,8 +54,9 @@ class PlaceController{
     }
 
     public function list(){
-        $places = (new Place())->list();
-        response($places,200);
+        $placeDAO = new PlaceDAO();
+        $result = $placeDAO->findMany();
+        response($result,200);
     } 
     
     public function delete(){
