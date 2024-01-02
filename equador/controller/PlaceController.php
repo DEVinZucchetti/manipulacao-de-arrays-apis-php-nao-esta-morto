@@ -78,8 +78,8 @@ class PlaceController{
         responseError("ID ausente", 400);
     }
 
-    $place = new Place();
-    $item = $place->listOne($id);
+    $placeDAO = new PlaceDAO();
+    $item = $placeDAO->findOne($id);
 
     response($item, 200);
     }
@@ -92,8 +92,8 @@ class PlaceController{
             responseError("ID ausente", 400);
         }
     
-        $place = new Place();
-        $place->update($id, $body);
+        $placeDAO = new PlaceDAO();
+        $placeDAO->updateOne($id, $body);
     
         response(["message" => "atualizado com sucesso"], 200);
     }
