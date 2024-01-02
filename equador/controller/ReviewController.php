@@ -1,6 +1,7 @@
 <?php 
-require_once 'utils.php';
-require_once 'models/Review.php';
+require_once '../utils.php';
+require_once '../models/Review.php';
+require_once '../models/ReviewDAO.php';
 
 class ReviewController{
     public function create(){
@@ -21,13 +22,20 @@ class ReviewController{
     //validar name max:200 caracteres
     if (strlen($name) > 200) responseError("O texto ultrapassou o limite", 400);
 
-
     
     $review = new Review($place_id);
     $review->setName($name);
     $review->setEmail($email);
     $review->setStars($stars);
-    $review->save();
+
+    $reviewDAO = new ReviewDAO();
+    $result = $reviewDAO->create($review);
+
+    if($result['success'] === true){
+        response(["message" => " Cadastro com sucesso"], 201);
+    }else{
+        responseError("Nao foi possivel realizar o cadastro",400);
+    }
 
     response(["message" => "Cadastrado com sucesso"], 201);
 
