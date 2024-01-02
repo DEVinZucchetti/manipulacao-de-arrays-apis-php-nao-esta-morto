@@ -21,35 +21,6 @@ class Review
        $this->status = "PENDENTE";
     }
 
-    public function save()
-    {
-        $data = [
-            "id" => $this->getId(),
-            "name" => $this->getName(),
-            "email" => $this->getEmail(),
-            "stars" => $this->getStars(),
-            "date" => $this->getDate(),
-            "status" => $this->getStatus(),
-            "place_id" => $this->getPlaceId()
-
-        ];
-
-        $allData = readFileContent("reviews.txt");
-        array_push($allData, $data);
-        saveFileContent("reviews.txt", $allData);
-    }
-
-    public function list(){
-        $allData = readFileContent("reviews.txt");
-      
-        $filtered = array_values(array_filter($allData, function($review){
-            return $review-> place_id === $this->getPlaceId();
-
-        })) ;
-
-     
-        return $filtered;
-    }
 
     public function updateStatus($id,$status)
     {

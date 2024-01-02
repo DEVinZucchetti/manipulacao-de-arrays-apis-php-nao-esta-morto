@@ -47,8 +47,10 @@ class ReviewController{
     
         if (!$place_id) responseError("ID do lugar está ausente", 400);
     
-       $reviews = new Review($place_id);   
-       response($reviews->list(), 200);
+       $reviewDAO = new ReviewDAO($place_id);  
+       $result = $reviewDAO->findMany(); 
+
+       response($result, 200);
     }
 
     public function update(){        

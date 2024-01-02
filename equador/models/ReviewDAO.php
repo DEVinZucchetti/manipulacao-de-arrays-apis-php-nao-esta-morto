@@ -48,11 +48,15 @@ class ReviewDAO
             }
         }
 
-    public function list()
+    public function findMany()
     {
-        
+        $sql = "select * from reviews";
+        $statement = ($this->getConnection())->prepare($sql);
+
+        return $statement->execute();//retorna solo os dados
+        return $statement->fetchAll(PDO::FETCH_ASSOC);// transforma em um array asociativo
     }
-    public function update()
+    public function updateOne()
     {
         
     }
