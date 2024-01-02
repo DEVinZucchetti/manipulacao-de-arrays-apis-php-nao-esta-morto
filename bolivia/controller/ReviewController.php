@@ -1,11 +1,9 @@
 <?php
-require_once 'utils.php';
-require_once 'models/Review.php';
-
-
+require_once '../utils.php';
+require_once '../models/Review.php';
+require_once '../models/ReviewDAO.php';
 
 class ReviewController {
-
     public function create() {
         $body = getBody();
         $blacklist = ['polimorfismo',  'herança', 'abstração', 'encapsulamento'];
@@ -32,32 +30,39 @@ class ReviewController {
         $review->setName($name);
         $review->setEmail($email);
         $review->setStars($stars);
-        $review->save();
 
-        response(['message' => 'Avaliação enviada com sucesso. Após a análise, ela ficará visível para todos.'], 201);
+        $reviewDAO = new ReviewDAO();
+        $result = $reviewDAO->insert($review);
+
+        if ($result['success'] === true) {
+            response(["message" => "Avaliação enviada com sucesso. Após a análise, ficará visível para todos."], 201);
+        } else {
+            responseError("Não foi possível enviar sua avaliação", 400);
+        }
     }
 
     public function list() {
-        $place_id = sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
+        $place_id = sanitizeInput($_GET, 'place_id', FILTER_SANITIZE_SPECIAL_CHARS, false);
 
         if (!$place_id) responseError('ID do local ausente. Insira para prosseguir.', 400);
 
-        $reviews = new Review($place_id);
+        $reviewDAO = new ReviewDAO();
+        $result = $reviewDAO->list($place_id);
 
-        response($reviews->list(), 200);
+        response($result, 200);
     }
 
     public function update() {
         $body = getBody();
-        $id =  sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
 
-        $status = sanitizeInput($body,  'status', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id =  sanitizeInput($_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS, false);
+        $status = sanitizeInput($body, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (!$id) responseError('ID da avaliação ausente. Insira para prosseguir.', 400);
         if (!$status) responseError('Status ausente. Insira para prosseguir.', 400);
 
-        $review = new Review();
-        $review->updateStatus($id, $status);
+        $reviewDAO = new ReviewDAO();
+        $reviewDAO->update($id, $status);
         response("Alteração de status para $status realizada com sucesso.", 200);
     }
 }

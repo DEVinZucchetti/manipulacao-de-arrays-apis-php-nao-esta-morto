@@ -28,6 +28,13 @@ function response($response, $status) {
     exit;
 }
 
+function debug($content) {
+    echo '<pre>';
+    echo var_dump($content);
+    echo '</pre>';
+    exit;
+}
+
 function sanitizeInput($data, $property, $filterType, $isObject = true) {
     if ($isObject) {
         return isset($data->$property) ? filter_var($data->$property, $filterType) : null;
