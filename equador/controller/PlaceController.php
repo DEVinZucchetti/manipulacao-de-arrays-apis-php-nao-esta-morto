@@ -48,8 +48,6 @@ class PlaceController{
         responseError("Nao foi possivel realizar o cadastro",400);
     }
 
-
-
     response(["message" => "cadastrado com sucesso"], 201);
     }
 
@@ -67,8 +65,8 @@ class PlaceController{
             responseError("ID ausente", 400);
         }
     
-        $place = new Place();
-        $place->delete($id);
+        $placeDAO = new PlaceDAO();
+        $placeDAO->deleteOne($id);
     
         response(["message" => "Deletado com sucesso"], 204);
     }

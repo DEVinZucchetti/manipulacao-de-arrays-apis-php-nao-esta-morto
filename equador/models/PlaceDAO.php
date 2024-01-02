@@ -60,8 +60,11 @@ class PlaceDAO{
 
     }
 
-    public function deleteOne(){
-
+    public function deleteOne($id){
+        $sql =  "delete from places where id = :id_value";
+        $statement = ($this->getConnection())->prepare($sql);
+        $statement->bindValue(":id_value", $id);
+        $statement->execute();
     }
 
     public function updateOne(){
